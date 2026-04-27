@@ -1,5 +1,5 @@
 import galaxyBg from "@/assets/galaxy-bg.jpg";
-import portrait from "@/assets/amzad-cutout.png";
+import portrait from "@/assets/amzad-portrait.jpg";
 import premiere from "@/assets/orbit/premiere.png";
 import aftereffects from "@/assets/orbit/aftereffects.png";
 import photoshop from "@/assets/orbit/photoshop.png";
