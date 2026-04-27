@@ -148,29 +148,26 @@ export default function OrbitHero() {
           {/* Orbiting tool icons (each on its assigned circular ring) */}
           {tools.map((t) => {
             const r = rings[t.ring];
-            // Negative animation-delay shifts the starting phase to startAngle
+            const size = `${r.radius * 2}%`; // ring diameter relative to stage
             const phaseDelay = -(t.startAngle / 360) * t.duration;
             return (
               <div
                 key={t.name}
                 className="absolute left-1/2 top-1/2 pointer-events-none"
                 style={{
-                  width: 0,
-                  height: 0,
+                  width: size,
+                  height: size,
+                  transform: "translate(-50%, -50%)",
                   animation: `orbit-spin ${t.duration}s linear infinite`,
                   animationDirection: t.reverse ? "reverse" : "normal",
                   animationDelay: `${phaseDelay}s`,
                   willChange: "transform",
                 }}
               >
-                {/* Push outward by ring radius */}
+                {/* Icon sits at the top of this rotating square => on the ring */}
                 <div
-                  style={{
-                    position: "absolute",
-                    left: 0,
-                    top: `-${r.radius * 3.6}px`,
-                    transform: "translate(-50%, -50%)",
-                  }}
+                  className="absolute left-1/2 top-0"
+                  style={{ transform: "translate(-50%, -50%)" }}
                 >
                   {/* Counter-rotate so the icon stays upright while the parent spins */}
                   <div
