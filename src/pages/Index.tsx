@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Cursor from "@/components/Cursor";
 import Hero from "@/components/Hero";
 import Stats from "@/components/Stats";
+import OrbitHero from "@/components/OrbitHero";
 
 import Services from "@/components/Services";
 import Work from "@/components/Work";
@@ -33,7 +34,7 @@ const Index = () => {
       <main className="relative z-10">
         <Hero />
         <Stats />
-        
+        <OrbitHero />
         <Services />
         <Work />
         <Process />
