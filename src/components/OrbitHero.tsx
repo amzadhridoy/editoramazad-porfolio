@@ -3,7 +3,7 @@ import portrait from "@/assets/amzad-new.png";
 import premiere from "@/assets/orbit/premiere.png";
 import aftereffects from "@/assets/orbit/aftereffects.png";
 import photoshop from "@/assets/orbit/photoshop.png";
-import chatgpt from "@/assets/orbit/chatgpt.png";
+import chatgpt from "@/assets/orbit/chatgpt-new.png";
 import claude from "@/assets/orbit/claude.png";
 import gemini from "@/assets/orbit/gemini.png";
 
@@ -94,7 +94,7 @@ export default function OrbitHero() {
         >
           {/* SVG orbit rings */}
           <svg
-            className="absolute inset-0 w-full h-full"
+            className="absolute inset-0 w-full h-full text-primary"
             viewBox="0 0 1000 700"
             fill="none"
             preserveAspectRatio="xMidYMid meet"
