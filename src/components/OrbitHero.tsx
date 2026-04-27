@@ -148,6 +148,8 @@ export default function OrbitHero() {
           {/* Orbiting tool icons (each on its assigned circular ring) */}
           {tools.map((t) => {
             const r = rings[t.ring];
+            // Negative animation-delay shifts the starting phase to startAngle
+            const phaseDelay = -(t.startAngle / 360) * t.duration;
             return (
               <div
                 key={t.name}
@@ -155,9 +157,10 @@ export default function OrbitHero() {
                 style={{
                   width: 0,
                   height: 0,
-                  // start angle + spin
-                  transform: `rotate(${t.startAngle}deg)`,
-                  animation: `orbit-spin ${t.duration}s linear infinite ${t.reverse ? "reverse" : ""}`,
+                  animation: `orbit-spin ${t.duration}s linear infinite`,
+                  animationDirection: t.reverse ? "reverse" : "normal",
+                  animationDelay: `${phaseDelay}s`,
+                  willChange: "transform",
                 }}
               >
                 {/* Push outward by ring radius */}
@@ -165,14 +168,17 @@ export default function OrbitHero() {
                   style={{
                     position: "absolute",
                     left: 0,
-                    top: `-${r.radius}%`,
+                    top: `-${r.radius * 3.6}px`,
                     transform: "translate(-50%, -50%)",
                   }}
                 >
                   {/* Counter-rotate so the icon stays upright while the parent spins */}
                   <div
                     style={{
-                      animation: `orbit-spin ${t.duration}s linear infinite ${t.reverse ? "" : "reverse"}`,
+                      animation: `orbit-spin ${t.duration}s linear infinite`,
+                      animationDirection: t.reverse ? "normal" : "reverse",
+                      animationDelay: `${-phaseDelay}s`,
+                      willChange: "transform",
                     }}
                   >
                     <div className="flex flex-col items-center gap-2 pointer-events-auto">
