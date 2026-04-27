@@ -1,6 +1,6 @@
 import { ArrowRight, Play } from "lucide-react";
 import { useEffect, useRef } from "react";
-import portrait from "@/assets/amzad-portrait.jpg";
+import portrait from "@/assets/amzad-portrait.png";
 
 const avatars = [
   "https://i.pravatar.cc/80?img=12",
@@ -34,15 +34,26 @@ export default function Hero() {
       <div className="container-tight relative">
         <div className="flex flex-col items-center text-center">
           <div ref={portraitRef} className="mb-10 reveal animate-float">
-            <div className="relative">
-              <div className="absolute -inset-4 rounded-full bg-primary/30 blur-2xl" />
-              <img
-                src={portrait}
-                alt="Amzad Hridoy, professional video editor"
-                width={140}
-                height={140}
-                className="relative size-32 md:size-36 rounded-full object-cover ring-1 ring-primary/40 shadow-glow"
-              />
+            <div className="relative group">
+              {/* Outer aura */}
+              <div className="absolute -inset-8 rounded-full bg-primary/30 blur-3xl opacity-80 group-hover:opacity-100 transition-opacity" />
+              {/* Glass ring frame */}
+              <div className="relative rounded-full p-[6px] bg-white/10 backdrop-blur-xl border border-white/20 shadow-glow">
+                <div className="rounded-full p-[2px] bg-gradient-to-br from-white/30 via-primary/40 to-transparent">
+                  <img
+                    src={portrait}
+                    alt="Amzad Hridoy, professional video editor"
+                    width={160}
+                    height={160}
+                    className="block size-36 md:size-40 rounded-full object-cover"
+                  />
+                </div>
+              </div>
+              {/* Floating glass chip */}
+              <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 text-[10px] uppercase tracking-[0.2em] text-foreground/90 whitespace-nowrap shadow-soft">
+                <span className="inline-block size-1.5 rounded-full bg-emerald-400 mr-2 align-middle animate-pulse" />
+                Available for Projects
+              </div>
             </div>
           </div>
 

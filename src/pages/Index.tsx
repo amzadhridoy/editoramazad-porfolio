@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import Cursor from "@/components/Cursor";
 import Hero from "@/components/Hero";
 import Stats from "@/components/Stats";
 import Services from "@/components/Services";
@@ -26,6 +27,7 @@ const Index = () => {
 
   return (
     <div className="relative min-h-screen">
+      <Cursor />
       <Navbar />
       <main className="relative z-10">
         <Hero />
