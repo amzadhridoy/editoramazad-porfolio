@@ -148,31 +148,34 @@ export default function OrbitHero() {
           {/* Orbiting tool icons (each on its assigned circular ring) */}
           {tools.map((t) => {
             const r = rings[t.ring];
+            const size = `${r.radius * 2}%`; // ring diameter relative to stage
+            const phaseDelay = -(t.startAngle / 360) * t.duration;
             return (
               <div
                 key={t.name}
                 className="absolute left-1/2 top-1/2 pointer-events-none"
                 style={{
-                  width: 0,
-                  height: 0,
-                  // start angle + spin
-                  transform: `rotate(${t.startAngle}deg)`,
-                  animation: `orbit-spin ${t.duration}s linear infinite ${t.reverse ? "reverse" : ""}`,
+                  width: size,
+                  height: size,
+                  transform: "translate(-50%, -50%)",
+                  animation: `orbit-spin ${t.duration}s linear infinite`,
+                  animationDirection: t.reverse ? "reverse" : "normal",
+                  animationDelay: `${phaseDelay}s`,
+                  willChange: "transform",
                 }}
               >
-                {/* Push outward by ring radius */}
+                {/* Icon sits at the top of this rotating square => on the ring */}
                 <div
-                  style={{
-                    position: "absolute",
-                    left: 0,
-                    top: `-${r.radius}%`,
-                    transform: "translate(-50%, -50%)",
-                  }}
+                  className="absolute left-1/2 top-0"
+                  style={{ transform: "translate(-50%, -50%)" }}
                 >
                   {/* Counter-rotate so the icon stays upright while the parent spins */}
                   <div
                     style={{
-                      animation: `orbit-spin ${t.duration}s linear infinite ${t.reverse ? "" : "reverse"}`,
+                      animation: `orbit-spin ${t.duration}s linear infinite`,
+                      animationDirection: t.reverse ? "normal" : "reverse",
+                      animationDelay: `${-phaseDelay}s`,
+                      willChange: "transform",
                     }}
                   >
                     <div className="flex flex-col items-center gap-2 pointer-events-auto">
