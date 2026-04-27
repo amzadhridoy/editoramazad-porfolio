@@ -51,12 +51,15 @@ export default function Cursor() {
     <>
       <div
         ref={ringRef}
-        className="pointer-events-none fixed left-0 top-0 z-[100] rounded-full border border-primary/70 backdrop-blur-sm transition-[width,height,background-color,border-color] duration-300 ease-out"
+        className="pointer-events-none fixed left-0 top-0 z-[100] rounded-full border border-primary/60 transition-[width,height,background-color,border-color] duration-300 ease-out"
         style={{
-          width: hover ? 56 : 36,
-          height: hover ? 56 : 36,
-          backgroundColor: hover ? "hsl(227 91% 64% / 0.18)" : "transparent",
+          width: hover ? 64 : 38,
+          height: hover ? 64 : 38,
+          backgroundColor: hover ? "hsl(227 91% 64% / 0.15)" : "hsl(227 91% 64% / 0.04)",
+          backdropFilter: "blur(6px)",
+          WebkitBackdropFilter: "blur(6px)",
           mixBlendMode: "screen",
+          boxShadow: hover ? "0 0 30px hsl(227 91% 64% / 0.5)" : "0 0 12px hsl(227 91% 64% / 0.3)",
         }}
       />
       <div

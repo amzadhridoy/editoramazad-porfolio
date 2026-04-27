@@ -4,8 +4,8 @@ export default function CTA() {
   return (
     <section id="cta" className="py-28">
       <div className="container-tight">
-        <div className="relative overflow-hidden rounded-[28px] surface px-8 py-20 md:py-28 text-center">
-          <div className="absolute -top-32 left-1/2 -translate-x-1/2 size-[600px] rounded-full bg-primary/20 blur-[120px] pointer-events-none" />
+        <div className="relative overflow-hidden rounded-[28px] glass-strong px-8 py-20 md:py-28 text-center shine">
+          <div className="absolute -top-32 left-1/2 -translate-x-1/2 size-[600px] rounded-full bg-primary/25 blur-[120px] pointer-events-none" />
           <div className="relative reveal">
             <h2 className="h-section">Ready to Grow With Video?</h2>
             <p className="mt-5 max-w-lg mx-auto">

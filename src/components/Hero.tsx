@@ -1,4 +1,4 @@
-import { ArrowRight, Play } from "lucide-react";
+import { ArrowRight, Play, Sparkles } from "lucide-react";
 import { useEffect, useRef } from "react";
 import portrait from "@/assets/amzad-portrait.png";
 
@@ -13,16 +13,22 @@ const avatars = [
 export default function Hero() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const portraitRef = useRef<HTMLDivElement>(null);
+  const auroraRef = useRef<HTMLDivElement>(null);
+  const showcaseRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
       const el = wrapRef.current;
-      const p = portraitRef.current;
-      if (!el || !p) return;
+      if (!el) return;
       const rect = el.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width - 0.5;
       const y = (e.clientY - rect.top) / rect.height - 0.5;
-      p.style.transform = `translate3d(${x * 14}px, ${y * 14}px, 0)`;
+      if (portraitRef.current)
+        portraitRef.current.style.transform = `translate3d(${x * 18}px, ${y * 18}px, 0)`;
+      if (auroraRef.current)
+        auroraRef.current.style.transform = `translate3d(${x * -30}px, ${y * -30}px, 0)`;
+      if (showcaseRef.current)
+        showcaseRef.current.style.transform = `perspective(1200px) rotateY(${x * 4}deg) rotateX(${-y * 3}deg)`;
     };
     window.addEventListener("mousemove", onMove);
     return () => window.removeEventListener("mousemove", onMove);
@@ -30,15 +36,22 @@ export default function Hero() {
 
   return (
     <section id="top" ref={wrapRef} className="relative pt-36 pb-24 overflow-hidden">
+      <div ref={auroraRef} className="aurora" />
       <div className="absolute inset-0 bg-gradient-hero pointer-events-none" />
+      <div className="absolute inset-0 noise" />
       <div className="container-tight relative">
         <div className="flex flex-col items-center text-center">
+          <div className="mb-8 reveal">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-chip text-xs uppercase tracking-[0.22em] text-foreground/80">
+              <Sparkles className="size-3.5 text-primary" />
+              Premium Video Editor · 1000+ Edits Delivered
+            </div>
+          </div>
+
           <div ref={portraitRef} className="mb-10 reveal animate-float">
             <div className="relative group">
-              {/* Outer aura */}
-              <div className="absolute -inset-8 rounded-full bg-primary/30 blur-3xl opacity-80 group-hover:opacity-100 transition-opacity" />
-              {/* Glass ring frame */}
-              <div className="relative rounded-full p-[6px] bg-white/10 backdrop-blur-xl border border-white/20 shadow-glow">
+              <div className="absolute -inset-10 rounded-full bg-primary/30 blur-3xl opacity-80 group-hover:opacity-100 transition-opacity" />
+              <div className="relative rounded-full p-[6px] glass-strong shadow-glow">
                 <div className="rounded-full p-[2px] bg-gradient-to-br from-white/30 via-primary/40 to-transparent">
                   <img
                     src={portrait}
@@ -49,8 +62,7 @@ export default function Hero() {
                   />
                 </div>
               </div>
-              {/* Floating glass chip */}
-              <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 text-[10px] uppercase tracking-[0.2em] text-foreground/90 whitespace-nowrap shadow-soft">
+              <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-3 py-1.5 rounded-full glass-chip text-[10px] uppercase tracking-[0.2em] text-foreground/90 whitespace-nowrap">
                 <span className="inline-block size-1.5 rounded-full bg-emerald-400 mr-2 align-middle animate-pulse" />
                 Available for Projects
               </div>
@@ -65,13 +77,16 @@ export default function Hero() {
           </h1>
 
           <p className="mt-7 max-w-xl text-base md:text-lg reveal" data-delay="160">
-            I help content creators, coaches, and brands with done-for-you video
-            editing that grows their audience on autopilot.
+            Done-for-you podcast, VSL, YouTube, Reels, Shorts & ad edits that grow
+            your audience and convert viewers into clients.
           </p>
 
-          <div className="mt-9 reveal" data-delay="220">
-            <a href="#cta" className="btn-primary text-base">
+          <div className="mt-9 reveal flex items-center gap-3" data-delay="220">
+            <a href="#cta" className="btn-primary text-base shine">
               Book A Free Call <ArrowRight className="size-4" />
+            </a>
+            <a href="#work" className="px-6 py-3.5 rounded-full glass-chip text-sm font-semibold hover:bg-white/10 transition">
+              See Selected Work
             </a>
           </div>
 
@@ -96,11 +111,11 @@ export default function Hero() {
         </div>
 
         {/* Video showcase */}
-        <div className="mt-20 reveal" data-delay="120">
-          <div className="relative mx-auto max-w-4xl group">
-            <div className="absolute -inset-1 rounded-[28px] bg-primary/20 blur-3xl opacity-70 group-hover:opacity-100 transition-opacity" />
-            <div className="relative surface aspect-video overflow-hidden flex items-center justify-center shadow-soft">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent" />
+        <div className="mt-20 reveal" data-delay="120" style={{ perspective: "1200px" }}>
+          <div ref={showcaseRef} className="relative mx-auto max-w-4xl group transition-transform duration-300 ease-out">
+            <div className="absolute -inset-2 rounded-[28px] bg-primary/25 blur-3xl opacity-70 group-hover:opacity-100 transition-opacity" />
+            <div className="relative glass-strong aspect-video overflow-hidden flex items-center justify-center shine">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-transparent to-transparent" />
               <button
                 aria-label="Play showreel"
                 className="relative size-20 rounded-full bg-primary/95 text-primary-foreground flex items-center justify-center transition hover:scale-110 shadow-glow"
@@ -109,6 +124,9 @@ export default function Hero() {
               </button>
               <span className="absolute bottom-6 left-6 text-xs uppercase tracking-[0.25em] text-muted-foreground">
                 Showreel · 2026
+              </span>
+              <span className="absolute top-6 right-6 px-3 py-1 rounded-full glass-chip text-[10px] uppercase tracking-[0.2em]">
+                4K · 60fps
               </span>
             </div>
           </div>

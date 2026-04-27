@@ -35,7 +35,7 @@ export default function Testimonials() {
           {items.map((t, i) => (
             <figure
               key={t.name}
-              className="surface p-7 glow-on-hover reveal flex flex-col"
+              className="glass p-7 glow-on-hover reveal flex flex-col shine"
               data-delay={i * 100}
             >
               <blockquote className="text-foreground/90 text-[15px] leading-relaxed">
