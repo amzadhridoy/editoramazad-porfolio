@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { ArrowRight } from "lucide-react";
 
 const links = [
-  { href: "#reviews", label: "Reviews" },
+  { href: "#about", label: "About" },
+  { href: "#services", label: "Services" },
   { href: "#work", label: "Work" },
   { href: "#process", label: "Process" },
-  { href: "#services", label: "Platforms" },
+  { href: "#reviews", label: "Reviews" },
 ];
 
 export default function Navbar() {
