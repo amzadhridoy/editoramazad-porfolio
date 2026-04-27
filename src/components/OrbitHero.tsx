@@ -7,122 +7,38 @@ import chatgpt from "@/assets/orbit/chatgpt.png";
 import claude from "@/assets/orbit/claude.png";
 import gemini from "@/assets/orbit/gemini.png";
 
-type Tool = { name: string; src: string; glow: string };
+type Tool = {
+  name: string;
+  src: string;
+  glow: string;
+  // position on the stage (percent)
+  x: number;
+  y: number;
+};
 
-const ring1: Tool[] = [
-  { name: "Premiere Pro",  src: premiere,     glow: "#9B8CFF" },
-  { name: "After Effects", src: aftereffects, glow: "#B49BFF" },
-  { name: "Photoshop",     src: photoshop,    glow: "#31A8FF" },
-];
-const ring2: Tool[] = [
-  { name: "ChatGPT", src: chatgpt, glow: "#10A37F" },
-  { name: "Gemini",  src: gemini,  glow: "#7AB6FF" },
-  { name: "Claude",  src: claude,  glow: "#FF8A4C" },
+// Hand-placed to match the reference: two icons high (Pr/Ae), two mid (Ps/ChatGPT), two low (Gemini/Claude)
+const tools: Tool[] = [
+  { name: "Adobe Premiere Pro",  src: premiere,     glow: "#9B8CFF", x: 26, y: 30 },
+  { name: "Adobe After Effects", src: aftereffects, glow: "#B49BFF", x: 74, y: 30 },
+  { name: "Adobe Photoshop",     src: photoshop,    glow: "#31A8FF", x: 14, y: 56 },
+  { name: "ChatGPT",             src: chatgpt,      glow: "#10A37F", x: 86, y: 56 },
+  { name: "Gemini",              src: gemini,       glow: "#7AB6FF", x: 32, y: 78 },
+  { name: "Claude",              src: claude,       glow: "#D97757", x: 68, y: 78 },
 ];
 
-function OrbitRing({
-  items,
-  diameter,
-  speed,
-  reverse = false,
-  tilt = 18,
-}: {
-  items: Tool[];
-  diameter: number; // % of container
-  speed: number;
-  reverse?: boolean;
-  tilt?: number;
-}) {
-  return (
-    <div
-      className="absolute left-1/2 top-1/2 pointer-events-none"
-      style={{
-        width: `${diameter}%`,
-        height: `${diameter}%`,
-        transform: `translate(-50%, -50%) rotateX(${tilt}deg)`,
-        transformStyle: "preserve-3d",
-      }}
-    >
-      {/* Ring stroke */}
-      <div
-        className="absolute inset-0 rounded-full"
-        style={{
-          border: "1px solid hsl(0 0% 100% / 0.10)",
-          boxShadow:
-            "inset 0 0 60px hsl(227 91% 64% / 0.10), 0 0 40px hsl(265 90% 65% / 0.08)",
-        }}
-      />
-      {/* Rotating layer */}
-      <div
-        className="absolute inset-0"
-        style={{
-          animation: `orbit-spin ${speed}s linear infinite ${reverse ? "reverse" : ""}`,
-          transformStyle: "preserve-3d",
-        }}
-      >
-        {items.map((tool, j) => {
-          const angle = (360 / items.length) * j;
-          return (
-            <div
-              key={tool.name}
-              className="absolute left-1/2 top-1/2"
-              style={{
-                transform: `translate(-50%, -50%) rotate(${angle}deg) translateY(-50%)`,
-              }}
-            >
-              {/* Counter-tilt + counter-rotate so icons stay upright */}
-              <div
-                style={{
-                  transform: `rotate(${-angle}deg) rotateX(${-tilt}deg)`,
-                  animation: `orbit-float 6s ease-in-out infinite`,
-                  animationDelay: `${j * 0.6}s`,
-                }}
-              >
-                <div
-                  className="size-12 md:size-14 rounded-2xl flex items-center justify-center glass-strong p-2 transition-transform hover:scale-110 pointer-events-auto"
-                  style={{
-                    boxShadow: `0 8px 30px ${tool.glow}66, 0 0 24px ${tool.glow}44, inset 0 1px 0 hsl(0 0% 100% / 0.20)`,
-                  }}
-                  title={tool.name}
-                >
-                  <img
-                    src={tool.src}
-                    alt={tool.name}
-                    width={44}
-                    height={44}
-                    loading="lazy"
-                    className="size-full object-contain drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]"
-                  />
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
+// SVG ellipse rings (rx, ry) in viewBox units (1000 x 1000)
+const rings = [
+  { rx: 470, ry: 150, color: "#7AB6FF", opacity: 0.55 },
+  { rx: 430, ry: 200, color: "#9B8CFF", opacity: 0.55 },
+  { rx: 380, ry: 250, color: "#B49BFF", opacity: 0.5 },
+  { rx: 320, ry: 300, color: "#31A8FF", opacity: 0.45 },
+];
 
 export default function OrbitHero() {
   const wrapRef = useRef<HTMLDivElement>(null);
-  const stageRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const onMove = (e: MouseEvent) => {
-      const el = wrapRef.current;
-      const stage = stageRef.current;
-      if (!el || !stage) return;
-      const rect = el.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
-      stage.style.transform = `perspective(1400px) rotateY(${x * 6}deg) rotateX(${-y * 4}deg)`;
-    };
-    window.addEventListener("mousemove", onMove);
-    return () => window.removeEventListener("mousemove", onMove);
-  }, []);
-
-  // Stable particle positions
-  const particles = Array.from({ length: 36 }).map((_, i) => ({
+  // subtle particles
+  const particles = Array.from({ length: 40 }).map((_, i) => ({
     top: `${(i * 53) % 100}%`,
     left: `${(i * 79) % 100}%`,
     size: (i % 3) + 1,
@@ -134,13 +50,13 @@ export default function OrbitHero() {
     <section
       id="universe"
       ref={wrapRef}
-      className="relative py-28 overflow-hidden"
+      className="relative py-20 md:py-28 overflow-hidden"
       style={{
         background:
-          "radial-gradient(ellipse at 50% 30%, hsl(258 70% 22% / 0.55), transparent 60%), radial-gradient(ellipse at 80% 80%, hsl(227 91% 30% / 0.45), transparent 55%), linear-gradient(180deg, hsl(232 50% 7%), hsl(226 40% 5%))",
+          "radial-gradient(ellipse at 50% 30%, hsl(258 70% 18% / 0.55), transparent 60%), radial-gradient(ellipse at 80% 80%, hsl(227 91% 25% / 0.45), transparent 55%), linear-gradient(180deg, hsl(232 50% 6%), hsl(226 40% 4%))",
       }}
     >
-      {/* Particles */}
+      {/* Background particles */}
       <div className="absolute inset-0 pointer-events-none">
         {particles.map((p, i) => (
           <span
@@ -151,7 +67,7 @@ export default function OrbitHero() {
               left: p.left,
               width: p.size,
               height: p.size,
-              opacity: 0.5,
+              opacity: 0.45,
               boxShadow: "0 0 6px hsl(227 91% 70% / 0.8)",
               animation: `particle-twinkle ${p.dur}s ease-in-out ${p.delay}s infinite`,
             }}
@@ -160,46 +76,111 @@ export default function OrbitHero() {
       </div>
 
       <div className="container-tight relative">
-        <div className="text-center mb-12 reveal">
-          <p className="text-sm uppercase tracking-[0.25em] text-primary">My Creative Universe</p>
-          <h2 className="h-section mt-4">
-            One craft. <span className="text-muted-foreground font-medium">A galaxy of</span> tools.
-          </h2>
+        {/* Top chip */}
+        <div className="flex justify-center mb-10 reveal">
+          <div className="glass-chip rounded-full px-5 py-2 text-xs md:text-sm tracking-[0.25em] uppercase text-foreground/90 flex items-center gap-2">
+            <span className="text-primary">✦</span>
+            Premium Video Editor · 1000+ Edits Delivered
+          </div>
         </div>
 
+        {/* Stage */}
         <div
-          ref={stageRef}
-          className="relative mx-auto transition-transform duration-300 ease-out"
+          className="relative mx-auto"
           style={{
-            width: "min(720px, 94vw)",
-            aspectRatio: "1 / 1",
-            transformStyle: "preserve-3d",
+            width: "min(1000px, 96vw)",
+            aspectRatio: "1000 / 700",
           }}
         >
-          {/* Soft aura */}
-          <div className="absolute inset-[18%] rounded-full bg-primary/30 blur-3xl" />
-          <div className="absolute inset-[10%] rounded-full"
-               style={{ background: "radial-gradient(circle, hsl(265 90% 65% / 0.20), transparent 65%)" }} />
+          {/* SVG orbit rings */}
+          <svg
+            className="absolute inset-0 w-full h-full"
+            viewBox="0 0 1000 700"
+            fill="none"
+            preserveAspectRatio="xMidYMid meet"
+          >
+            <defs>
+              {rings.map((r, i) => (
+                <radialGradient key={i} id={`ring-grad-${i}`} cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stopColor={r.color} stopOpacity="0" />
+                  <stop offset="50%" stopColor={r.color} stopOpacity={r.opacity} />
+                  <stop offset="100%" stopColor={r.color} stopOpacity="0.2" />
+                </radialGradient>
+              ))}
+              <filter id="glow">
+                <feGaussianBlur stdDeviation="3" result="b" />
+                <feMerge>
+                  <feMergeNode in="b" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
 
-          {/* Orbit rings */}
-          <OrbitRing items={ring1} diameter={68} speed={34} tilt={20} />
-          <OrbitRing items={ring2} diameter={94} speed={52} reverse tilt={20} />
+            {/* Rings */}
+            <g style={{ transformOrigin: "500px 350px" }}>
+              {rings.map((r, i) => (
+                <ellipse
+                  key={i}
+                  cx="500"
+                  cy="350"
+                  rx={r.rx}
+                  ry={r.ry}
+                  stroke={`url(#ring-grad-${i})`}
+                  strokeWidth="1.2"
+                  fill="none"
+                />
+              ))}
+            </g>
+
+            {/* Glowing dots traveling along rings */}
+            {rings.map((r, i) => {
+              const dur = 14 + i * 6;
+              const reverse = i % 2 === 1;
+              return (
+                <g key={`dots-${i}`} filter="url(#glow)">
+                  {[0, 1, 2].map((k) => (
+                    <circle key={k} cx={500 + r.rx} cy="350" r="3" fill={r.color}>
+                      <animateTransform
+                        attributeName="transform"
+                        type="rotate"
+                        from={`${(360 / 3) * k} 500 350`}
+                        to={`${(360 / 3) * k + (reverse ? -360 : 360)} 500 350`}
+                        dur={`${dur}s`}
+                        repeatCount="indefinite"
+                      />
+                      <animateTransform
+                        attributeName="transform"
+                        type="scale"
+                        additive="sum"
+                        values="1 0.4;1 0.4"
+                        dur={`${dur}s`}
+                        repeatCount="indefinite"
+                      />
+                    </circle>
+                  ))}
+                </g>
+              );
+            })}
+          </svg>
 
           {/* Center portrait */}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+          <div
+            className="absolute"
+            style={{ left: "50%", top: "50%", transform: "translate(-50%, -50%)" }}
+          >
             <div className="relative">
-              <div className="absolute -inset-8 rounded-full bg-primary/40 blur-2xl animate-pulse" />
+              <div className="absolute -inset-6 rounded-full bg-primary/40 blur-2xl" />
               <div
-                className="absolute -inset-2 rounded-full"
+                className="absolute -inset-1.5 rounded-full"
                 style={{
                   background:
                     "conic-gradient(from 0deg, hsl(227 91% 64%), hsl(265 90% 65%), hsl(195 95% 60%), hsl(227 91% 64%))",
-                  filter: "blur(6px)",
-                  animation: "orbit-spin 12s linear infinite",
-                  opacity: 0.7,
+                  filter: "blur(4px)",
+                  animation: "orbit-spin 14s linear infinite",
+                  opacity: 0.85,
                 }}
               />
-              <div className="relative size-40 md:size-52 rounded-full overflow-hidden glass-strong p-1.5 shadow-glow">
+              <div className="relative size-36 md:size-44 rounded-full overflow-hidden p-[3px] bg-gradient-to-br from-primary to-fuchsia-500 shadow-glow">
                 <img
                   src={portrait}
                   alt="Amzad Hridoy at the center of his creative universe"
@@ -208,6 +189,55 @@ export default function OrbitHero() {
               </div>
             </div>
           </div>
+
+          {/* Tool icons positioned on rings */}
+          {tools.map((t, i) => (
+            <div
+              key={t.name}
+              className="absolute flex flex-col items-center gap-2"
+              style={{
+                left: `${t.x}%`,
+                top: `${t.y}%`,
+                transform: "translate(-50%, -50%)",
+                animation: `orbit-float ${5 + (i % 3)}s ease-in-out ${i * 0.4}s infinite`,
+              }}
+            >
+              <div
+                className="size-14 md:size-16 rounded-2xl flex items-center justify-center glass-strong p-2.5 transition-transform hover:scale-110"
+                style={{
+                  boxShadow: `0 10px 32px ${t.glow}55, 0 0 22px ${t.glow}66, inset 0 1px 0 hsl(0 0% 100% / 0.20)`,
+                  border: `1px solid ${t.glow}55`,
+                }}
+                title={t.name}
+              >
+                <img
+                  src={t.src}
+                  alt={t.name}
+                  width={48}
+                  height={48}
+                  loading="lazy"
+                  className="size-full object-contain drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]"
+                />
+              </div>
+              <div className="text-center text-xs md:text-sm font-medium text-foreground/90 leading-tight whitespace-pre">
+                {t.name.replace(" ", "\n")}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Headline below */}
+        <div className="text-center mt-10 md:mt-14 reveal">
+          <h2 className="font-bold tracking-tight text-foreground" style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.5rem)", lineHeight: 1.05, letterSpacing: "-0.03em" }}>
+            Get More Views
+            <br />
+            <span className="text-muted-foreground/80">Using</span>{" "}
+            <span className="text-foreground">Quality Video Editing</span>
+          </h2>
+          <p className="mt-5 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
+            Done-for-you podcast, VSL, YouTube, Reels, Shorts &amp; ad edits that
+            grow your audience and convert viewers into clients.
+          </p>
         </div>
       </div>
 
