@@ -3,6 +3,7 @@ import Cursor from "@/components/Cursor";
 import Hero from "@/components/Hero";
 import Stats from "@/components/Stats";
 import About from "@/components/About";
+import Orbit from "@/components/Orbit";
 import Services from "@/components/Services";
 import Work from "@/components/Work";
 import Process from "@/components/Process";
@@ -34,6 +35,7 @@ const Index = () => {
         <Hero />
         <Stats />
         <About />
+        <Orbit />
         <Services />
         <Work />
         <Process />
