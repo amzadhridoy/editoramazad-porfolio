@@ -18,12 +18,10 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-        scrolled ? "backdrop-blur-xl bg-background/70 py-3" : "py-5"
-      }`}
-    >
-      <nav className="container-tight flex items-center justify-between">
+    <header className="fixed top-4 inset-x-0 z-50 transition-all duration-500">
+      <nav className={`container-tight flex items-center justify-between transition-all duration-500 ${
+        scrolled ? "glass-chip rounded-full !px-5 py-2" : "py-3"
+      }`}>
         <a href="#top" className="text-base font-bold tracking-tight">
           Amzad <span className="text-primary">Hridoy</span>
         </a>

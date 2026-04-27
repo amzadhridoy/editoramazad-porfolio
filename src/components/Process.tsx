@@ -14,9 +14,9 @@ export default function Process() {
           <h2 className="h-section mt-4">Simple. Strategic. Premium.</h2>
         </div>
 
-        <div className="mt-14 grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-6 relative">
+        <div className="mt-14 grid grid-cols-1 md:grid-cols-4 gap-6 relative">
           {steps.map((s, i) => (
-            <div key={s.n} className="reveal" data-delay={i * 100}>
+            <div key={s.n} className="glass p-6 reveal hover:-translate-y-1 transition-transform duration-500" data-delay={i * 100}>
               <div className="text-sm font-mono text-primary tracking-widest">{s.n}</div>
               <h3 className="mt-4 text-xl font-semibold">{s.title}</h3>
               <p className="mt-2 text-sm">{s.desc}</p>
