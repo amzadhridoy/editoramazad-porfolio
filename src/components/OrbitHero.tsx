@@ -3,6 +3,7 @@ import portrait from "@/assets/amzad-final.png";
 import premiere from "@/assets/orbit/premiere.png";
 import aftereffects from "@/assets/orbit/aftereffects.png";
 import photoshop from "@/assets/orbit/photoshop.png";
+import capcut from "@/assets/orbit/capcut.png";
 import chatgpt from "@/assets/orbit/chatgpt-new.png";
 import claude from "@/assets/orbit/claude.png";
 import gemini from "@/assets/orbit/gemini.png";
@@ -25,14 +26,18 @@ const rings = [
 ];
 
 const tools: Tool[] = [
-  { name: "Adobe Premiere Pro",  src: premiere,     glow: "#9B8CFF", ring: 0, startAngle: 300, duration: 22 },
-  { name: "Adobe After Effects", src: aftereffects, glow: "#B49BFF", ring: 0, startAngle: 120, duration: 22 },
+  // Inner ring — 3 creative apps
+  { name: "Adobe Premiere Pro",  src: premiere,     glow: "#9B8CFF", ring: 0, startAngle: 0,   duration: 24 },
+  { name: "Adobe After Effects", src: aftereffects, glow: "#B49BFF", ring: 0, startAngle: 120, duration: 24 },
+  { name: "Adobe Photoshop",     src: photoshop,    glow: "#31A8FF", ring: 0, startAngle: 240, duration: 24 },
 
-  { name: "Adobe Photoshop",     src: photoshop,    glow: "#31A8FF", ring: 1, startAngle: 200, duration: 32, reverse: true },
-  { name: "ChatGPT",             src: chatgpt,      glow: "#10A37F", ring: 1, startAngle: 20,  duration: 32, reverse: true },
+  // Middle ring — CapCut alone, slow & opposite direction
+  { name: "CapCut",              src: capcut,       glow: "#00E0FF", ring: 1, startAngle: 60,  duration: 32, reverse: true },
 
-  { name: "Gemini",              src: gemini,       glow: "#7AB6FF", ring: 2, startAngle: 250, duration: 44 },
-  { name: "Claude",              src: claude,       glow: "#D97757", ring: 2, startAngle: 70,  duration: 44 },
+  // Outer ring — 3 AI tools
+  { name: "ChatGPT",             src: chatgpt,      glow: "#10A37F", ring: 2, startAngle: 30,  duration: 44 },
+  { name: "Gemini",              src: gemini,       glow: "#7AB6FF", ring: 2, startAngle: 150, duration: 44 },
+  { name: "Claude",              src: claude,       glow: "#D97757", ring: 2, startAngle: 270, duration: 44 },
 ];
 
 export default function OrbitHero() {
