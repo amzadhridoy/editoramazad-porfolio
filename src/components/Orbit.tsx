@@ -1,51 +1,56 @@
 import galaxyBg from "@/assets/galaxy-bg.jpg";
 import portrait from "@/assets/amzad-cutout.png";
+import premiere from "@/assets/orbit/premiere.png";
+import aftereffects from "@/assets/orbit/aftereffects.png";
+import photoshop from "@/assets/orbit/photoshop.png";
+import capcut from "@/assets/orbit/capcut.png";
+import chatgpt from "@/assets/orbit/chatgpt.png";
+import claude from "@/assets/orbit/claude.png";
+import gemini from "@/assets/orbit/gemini.png";
 
-type Tool = { name: string; bg: string; label: string; color: string };
+type Tool = { name: string; src: string; glow: string };
 
 const tools: Tool[] = [
-  { name: "Premiere Pro", bg: "#2A0E61", label: "Pr", color: "#EA77FF" },
-  { name: "After Effects", bg: "#1F0A3D", label: "Ae", color: "#D291FF" },
-  { name: "Photoshop",    bg: "#001E36", label: "Ps", color: "#31A8FF" },
-  { name: "CapCut",       bg: "#0B0B0F", label: "Cc", color: "#22D3EE" },
-  { name: "ChatGPT",      bg: "#0F1715", label: "GPT", color: "#10A37F" },
-  { name: "Claude",       bg: "#1A0F08", label: "Cl", color: "#D97757" },
-  { name: "Gemini",       bg: "#0B1736", label: "Gm", color: "#7AB6FF" },
+  { name: "Premiere Pro",  src: premiere,     glow: "#9999FF" },
+  { name: "After Effects", src: aftereffects, glow: "#D291FF" },
+  { name: "Photoshop",     src: photoshop,    glow: "#31A8FF" },
+  { name: "CapCut",        src: capcut,       glow: "#FFFFFF" },
+  { name: "ChatGPT",       src: chatgpt,      glow: "#10A37F" },
+  { name: "Claude",        src: claude,       glow: "#FF8A4C" },
+  { name: "Gemini",        src: gemini,       glow: "#7AB6FF" },
 ];
 
 export default function Orbit() {
-  const ringSizes = [320, 460, 600]; // px
-  // Distribute icons across rings
+  const ringSizes = [320, 460, 600];
   const distribution = [
     [tools[0], tools[3]],
     [tools[1], tools[4], tools[6]],
     [tools[2], tools[5]],
   ];
-  const speeds = [28, 42, 58]; // seconds per revolution
+  const speeds = [28, 42, 58];
 
   return (
-    <section id="orbit" className="relative py-28 overflow-hidden">
+    <section id="about" className="relative py-28 overflow-hidden">
       <div className="container-tight relative">
         <div className="text-center mb-14 reveal">
-          <p className="text-sm uppercase tracking-[0.25em] text-primary">My Universe</p>
+          <p className="text-sm uppercase tracking-[0.25em] text-primary">About / My Universe</p>
           <h2 className="h-section mt-4">
             Tools that <span className="text-muted-foreground font-medium">orbit</span> my craft
           </h2>
+          <p className="mt-5 max-w-xl mx-auto">
+            3+ years, 1000+ videos delivered. I blend cinematic editing with AI-powered workflows
+            to ship premium content faster — for creators, coaches & brands worldwide.
+          </p>
         </div>
 
         <div className="relative mx-auto" style={{ width: "min(680px, 92vw)", aspectRatio: "1 / 1" }}>
           {/* Galaxy background */}
           <div className="absolute inset-0 rounded-full overflow-hidden">
-            <img
-              src={galaxyBg}
-              alt=""
-              className="absolute inset-0 size-full object-cover scale-110"
-              loading="lazy"
-            />
+            <img src={galaxyBg} alt="" className="absolute inset-0 size-full object-cover scale-110" loading="lazy" />
             <div className="absolute inset-0 bg-gradient-radial from-transparent via-background/30 to-background" />
           </div>
 
-          {/* Aura glow */}
+          {/* Aura */}
           <div className="absolute inset-[15%] rounded-full bg-primary/30 blur-3xl" />
 
           {/* Orbit rings */}
@@ -62,7 +67,7 @@ export default function Orbit() {
             />
           ))}
 
-          {/* Rotating orbits with icons */}
+          {/* Rotating rings */}
           {distribution.map((items, ringIdx) => {
             const size = ringSizes[ringIdx];
             const reverse = ringIdx % 2 === 1;
@@ -83,26 +88,27 @@ export default function Orbit() {
                     <div
                       key={tool.name}
                       className="absolute left-1/2 top-1/2"
-                      style={{
-                        transform: `translate(-50%, -50%) rotate(${angle}deg) translateY(-50%)`,
-                      }}
+                      style={{ transform: `translate(-50%, -50%) rotate(${angle}deg) translateY(-50%)` }}
                     >
                       <div
                         className="orbit-icon"
-                        style={{
-                          animation: `orbit-spin ${speeds[ringIdx]}s linear infinite ${reverse ? "" : "reverse"}`,
-                        }}
+                        style={{ animation: `orbit-spin ${speeds[ringIdx]}s linear infinite ${reverse ? "" : "reverse"}` }}
                         title={tool.name}
                       >
                         <div
-                          className="size-14 md:size-16 rounded-2xl flex items-center justify-center font-bold text-base md:text-lg shadow-2xl glass-strong"
+                          className="size-14 md:size-16 rounded-2xl flex items-center justify-center glass-strong p-2.5 transition-transform hover:scale-110"
                           style={{
-                            background: `linear-gradient(135deg, ${tool.bg}, ${tool.bg}cc)`,
-                            color: tool.color,
-                            boxShadow: `0 10px 40px ${tool.color}55, inset 0 1px 0 hsl(0 0% 100% / 0.15)`,
+                            boxShadow: `0 10px 40px ${tool.glow}55, inset 0 1px 0 hsl(0 0% 100% / 0.18)`,
                           }}
                         >
-                          {tool.label}
+                          <img
+                            src={tool.src}
+                            alt={tool.name}
+                            width={48}
+                            height={48}
+                            loading="lazy"
+                            className="size-full object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)]"
+                          />
                         </div>
                       </div>
                     </div>
