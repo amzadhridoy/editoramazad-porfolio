@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import portrait from "@/assets/amzad-final.png";
 import premiere from "@/assets/orbit/premiere.png";
 import aftereffects from "@/assets/orbit/aftereffects.png";
@@ -11,33 +11,33 @@ type Tool = {
   name: string;
   src: string;
   glow: string;
-  // position on the stage (percent)
-  x: number;
-  y: number;
+  ring: number;        // which circular ring (index)
+  startAngle: number;  // starting angle in degrees
+  duration: number;    // seconds per full revolution
+  reverse?: boolean;
 };
 
-// Hand-placed to match the reference: two icons high (Pr/Ae), two mid (Ps/ChatGPT), two low (Gemini/Claude)
-const tools: Tool[] = [
-  { name: "Adobe Premiere Pro",  src: premiere,     glow: "#9B8CFF", x: 26, y: 30 },
-  { name: "Adobe After Effects", src: aftereffects, glow: "#B49BFF", x: 74, y: 30 },
-  { name: "Adobe Photoshop",     src: photoshop,    glow: "#31A8FF", x: 14, y: 56 },
-  { name: "ChatGPT",             src: chatgpt,      glow: "#10A37F", x: 86, y: 56 },
-  { name: "Gemini",              src: gemini,       glow: "#7AB6FF", x: 32, y: 78 },
-  { name: "Claude",              src: claude,       glow: "#D97757", x: 68, y: 78 },
+// 3 perfectly circular rings (radii in % of stage size)
+const rings = [
+  { radius: 22, color: "#7AB6FF", opacity: 0.45 }, // inner
+  { radius: 34, color: "#9B8CFF", opacity: 0.45 }, // middle
+  { radius: 46, color: "#B49BFF", opacity: 0.4 },  // outer
 ];
 
-// SVG ellipse rings (rx, ry) in viewBox units (1000 x 1000)
-const rings = [
-  { rx: 470, ry: 150, color: "#7AB6FF", opacity: 0.55 },
-  { rx: 430, ry: 200, color: "#9B8CFF", opacity: 0.55 },
-  { rx: 380, ry: 250, color: "#B49BFF", opacity: 0.5 },
-  { rx: 320, ry: 300, color: "#31A8FF", opacity: 0.45 },
+const tools: Tool[] = [
+  { name: "Adobe Premiere Pro",  src: premiere,     glow: "#9B8CFF", ring: 0, startAngle: 300, duration: 22 },
+  { name: "Adobe After Effects", src: aftereffects, glow: "#B49BFF", ring: 0, startAngle: 120, duration: 22 },
+
+  { name: "Adobe Photoshop",     src: photoshop,    glow: "#31A8FF", ring: 1, startAngle: 200, duration: 32, reverse: true },
+  { name: "ChatGPT",             src: chatgpt,      glow: "#10A37F", ring: 1, startAngle: 20,  duration: 32, reverse: true },
+
+  { name: "Gemini",              src: gemini,       glow: "#7AB6FF", ring: 2, startAngle: 250, duration: 44 },
+  { name: "Claude",              src: claude,       glow: "#D97757", ring: 2, startAngle: 70,  duration: 44 },
 ];
 
 export default function OrbitHero() {
   const wrapRef = useRef<HTMLDivElement>(null);
 
-  // subtle particles
   const particles = Array.from({ length: 40 }).map((_, i) => ({
     top: `${(i * 53) % 100}%`,
     left: `${(i * 79) % 100}%`,
@@ -84,88 +84,123 @@ export default function OrbitHero() {
           </div>
         </div>
 
-        {/* Stage */}
+        {/* Square stage so circles stay perfectly round */}
         <div
           className="relative mx-auto"
           style={{
-            width: "min(1000px, 96vw)",
-            aspectRatio: "1000 / 700",
+            width: "min(720px, 92vw)",
+            aspectRatio: "1 / 1",
           }}
         >
-          {/* SVG orbit rings */}
-          <svg
-            className="absolute inset-0 w-full h-full text-primary"
-            viewBox="0 0 1000 700"
-            fill="none"
-            preserveAspectRatio="xMidYMid meet"
-          >
-            <defs>
-              {rings.map((r, i) => (
-                <radialGradient key={i} id={`ring-grad-${i}`} cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stopColor={r.color} stopOpacity="0" />
-                  <stop offset="50%" stopColor={r.color} stopOpacity={r.opacity} />
-                  <stop offset="100%" stopColor={r.color} stopOpacity="0.2" />
-                </radialGradient>
-              ))}
-              <filter id="glow">
-                <feGaussianBlur stdDeviation="3" result="b" />
-                <feMerge>
-                  <feMergeNode in="b" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
-            </defs>
+          {/* Soft aura behind everything */}
+          <div className="absolute inset-[30%] rounded-full bg-primary/30 blur-3xl pointer-events-none" />
 
-            {/* Rings */}
-            <g style={{ transformOrigin: "500px 350px" }}>
-              {rings.map((r, i) => (
-                <ellipse
-                  key={i}
-                  cx="500"
-                  cy="350"
-                  rx={r.rx}
-                  ry={r.ry}
-                  stroke={`url(#ring-grad-${i})`}
-                  strokeWidth="1.2"
-                  fill="none"
-                />
-              ))}
-            </g>
+          {/* Circular ring strokes + traveling glow dots */}
+          {rings.map((r, i) => {
+            const size = `${r.radius * 2}%`;
+            return (
+              <div
+                key={`ring-${i}`}
+                className="absolute left-1/2 top-1/2 rounded-full pointer-events-none"
+                style={{
+                  width: size,
+                  height: size,
+                  transform: "translate(-50%, -50%)",
+                  border: `1px solid ${r.color}`,
+                  opacity: r.opacity,
+                  boxShadow: `0 0 30px ${r.color}33, inset 0 0 30px ${r.color}22`,
+                }}
+              >
+                {/* Glow dots that travel along the ring */}
+                {[0, 120, 240].map((deg, k) => (
+                  <div
+                    key={k}
+                    className="absolute left-1/2 top-1/2"
+                    style={{
+                      width: 0,
+                      height: 0,
+                      animation: `orbit-spin ${18 + i * 8}s linear ${k * -((18 + i * 8) / 3)}s infinite`,
+                      transformOrigin: "0 0",
+                    }}
+                  >
+                    <div
+                      className="absolute rounded-full"
+                      style={{
+                        width: 6,
+                        height: 6,
+                        left: `calc(50% - 3px)`,
+                        top: `calc(-50% - 3px)`,
+                        background: r.color,
+                        boxShadow: `0 0 12px ${r.color}, 0 0 24px ${r.color}`,
+                      }}
+                    />
+                  </div>
+                ))}
+              </div>
+            );
+          })}
 
-            {/* Glowing dots traveling along rings */}
-            {rings.map((r, i) => {
-              const dur = 14 + i * 6;
-              const reverse = i % 2 === 1;
-              return (
-                <g key={`dots-${i}`} filter="url(#glow)">
-                  {[0, 1, 2].map((k) => (
-                    <circle key={k} cx={500 + r.rx} cy="350" r="3" fill={r.color}>
-                      <animateTransform
-                        attributeName="transform"
-                        type="rotate"
-                        from={`${(360 / 3) * k} 500 350`}
-                        to={`${(360 / 3) * k + (reverse ? -360 : 360)} 500 350`}
-                        dur={`${dur}s`}
-                        repeatCount="indefinite"
-                      />
-                      <animateTransform
-                        attributeName="transform"
-                        type="scale"
-                        additive="sum"
-                        values="1 0.4;1 0.4"
-                        dur={`${dur}s`}
-                        repeatCount="indefinite"
-                      />
-                    </circle>
-                  ))}
-                </g>
-              );
-            })}
-          </svg>
+          {/* Orbiting tool icons (each on its assigned circular ring) */}
+          {tools.map((t) => {
+            const r = rings[t.ring];
+            return (
+              <div
+                key={t.name}
+                className="absolute left-1/2 top-1/2 pointer-events-none"
+                style={{
+                  width: 0,
+                  height: 0,
+                  // start angle + spin
+                  transform: `rotate(${t.startAngle}deg)`,
+                  animation: `orbit-spin ${t.duration}s linear infinite ${t.reverse ? "reverse" : ""}`,
+                }}
+              >
+                {/* Push outward by ring radius */}
+                <div
+                  style={{
+                    position: "absolute",
+                    left: 0,
+                    top: `-${r.radius}%`,
+                    transform: "translate(-50%, -50%)",
+                  }}
+                >
+                  {/* Counter-rotate so the icon stays upright while the parent spins */}
+                  <div
+                    style={{
+                      animation: `orbit-spin ${t.duration}s linear infinite ${t.reverse ? "" : "reverse"}`,
+                    }}
+                  >
+                    <div className="flex flex-col items-center gap-2 pointer-events-auto">
+                      <div
+                        className="size-14 md:size-16 rounded-2xl flex items-center justify-center glass-strong p-2.5 transition-transform hover:scale-110"
+                        style={{
+                          boxShadow: `0 10px 32px ${t.glow}55, 0 0 22px ${t.glow}66, inset 0 1px 0 hsl(0 0% 100% / 0.20)`,
+                          border: `1px solid ${t.glow}55`,
+                        }}
+                        title={t.name}
+                      >
+                        <img
+                          src={t.src}
+                          alt={t.name}
+                          width={48}
+                          height={48}
+                          loading="lazy"
+                          className="size-full object-contain drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]"
+                        />
+                      </div>
+                      <div className="text-center text-xs md:text-sm font-medium text-foreground/90 leading-tight whitespace-nowrap">
+                        {t.name}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
 
           {/* Center portrait */}
           <div
-            className="absolute"
+            className="absolute z-10"
             style={{ left: "50%", top: "50%", transform: "translate(-50%, -50%)" }}
           >
             <div className="relative">
@@ -189,46 +224,14 @@ export default function OrbitHero() {
               </div>
             </div>
           </div>
-
-          {/* Tool icons positioned on rings */}
-          {tools.map((t, i) => (
-            <div
-              key={t.name}
-              className="absolute flex flex-col items-center gap-2"
-              style={{
-                left: `${t.x}%`,
-                top: `${t.y}%`,
-                transform: "translate(-50%, -50%)",
-                animation: `orbit-float ${5 + (i % 3)}s ease-in-out ${i * 0.4}s infinite`,
-              }}
-            >
-              <div
-                className="size-14 md:size-16 rounded-2xl flex items-center justify-center glass-strong p-2.5 transition-transform hover:scale-110"
-                style={{
-                  boxShadow: `0 10px 32px ${t.glow}55, 0 0 22px ${t.glow}66, inset 0 1px 0 hsl(0 0% 100% / 0.20)`,
-                  border: `1px solid ${t.glow}55`,
-                }}
-                title={t.name}
-              >
-                <img
-                  src={t.src}
-                  alt={t.name}
-                  width={48}
-                  height={48}
-                  loading="lazy"
-                  className="size-full object-contain drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]"
-                />
-              </div>
-              <div className="text-center text-xs md:text-sm font-medium text-foreground/90 leading-tight whitespace-pre">
-                {t.name.replace(" ", "\n")}
-              </div>
-            </div>
-          ))}
         </div>
 
-        {/* Headline below */}
+        {/* Headline */}
         <div className="text-center mt-10 md:mt-14 reveal">
-          <h2 className="font-bold tracking-tight text-foreground" style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.5rem)", lineHeight: 1.05, letterSpacing: "-0.03em" }}>
+          <h2
+            className="font-bold tracking-tight text-foreground"
+            style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.5rem)", lineHeight: 1.05, letterSpacing: "-0.03em" }}
+          >
             Get More Views
             <br />
             <span className="text-muted-foreground/80">Using</span>{" "}
@@ -245,10 +248,6 @@ export default function OrbitHero() {
         @keyframes orbit-spin {
           from { transform: rotate(0deg); }
           to   { transform: rotate(360deg); }
-        }
-        @keyframes orbit-float {
-          0%, 100% { translate: 0 0; }
-          50%      { translate: 0 -6px; }
         }
         @keyframes particle-twinkle {
           0%, 100% { opacity: 0.15; transform: scale(1); }
