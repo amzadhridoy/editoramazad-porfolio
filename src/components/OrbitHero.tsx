@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import portrait from "@/assets/amzad-portrait.jpg";
+import portrait from "@/assets/amzad-new.png";
 import premiere from "@/assets/orbit/premiere.png";
 import aftereffects from "@/assets/orbit/aftereffects.png";
 import photoshop from "@/assets/orbit/photoshop.png";
