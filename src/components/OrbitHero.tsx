@@ -168,7 +168,7 @@ export default function OrbitHero() {
                     top: `-${r.radius}%`,
                   }}
                 >
-                  {/* Counter-rotate so the icon stays upright while the parent spins */}
+                  {/* Counter-rotate to keep upright, then spin the icon itself */}
                   <div
                     style={{
                       animation: `orbit-spin ${t.duration}s linear infinite ${t.reverse ? "" : "reverse"}`,
@@ -176,21 +176,27 @@ export default function OrbitHero() {
                     }}
                   >
                     <div
-                      className="size-12 md:size-14 rounded-2xl flex items-center justify-center glass-strong p-2 transition-transform hover:scale-110 pointer-events-auto"
                       style={{
-                        boxShadow: `0 10px 32px ${t.glow}55, 0 0 22px ${t.glow}66, inset 0 1px 0 hsl(0 0% 100% / 0.20)`,
-                        border: `1px solid ${t.glow}55`,
+                        animation: `orbit-spin ${8 + (t.ring * 2)}s linear infinite`,
                       }}
-                      title={t.name}
                     >
-                      <img
-                        src={t.src}
-                        alt={t.name}
-                        width={48}
-                        height={48}
-                        loading="lazy"
-                        className="size-full object-contain drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]"
-                      />
+                      <div
+                        className="size-12 md:size-14 rounded-2xl flex items-center justify-center glass-strong p-2 transition-transform hover:scale-110 pointer-events-auto"
+                        style={{
+                          boxShadow: `0 10px 32px ${t.glow}55, 0 0 22px ${t.glow}66, inset 0 1px 0 hsl(0 0% 100% / 0.20)`,
+                          border: `1px solid ${t.glow}55`,
+                        }}
+                        title={t.name}
+                      >
+                        <img
+                          src={t.src}
+                          alt={t.name}
+                          width={48}
+                          height={48}
+                          loading="lazy"
+                          className="size-full object-contain drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
