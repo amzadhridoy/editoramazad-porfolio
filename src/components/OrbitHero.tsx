@@ -153,29 +153,29 @@ export default function OrbitHero() {
                 key={t.name}
                 className="orbit-tool absolute left-1/2 top-1/2 pointer-events-none"
                 style={{
-                  width: 0,
-                  height: 0,
-                  // start angle + spin
-                  transform: `rotate(${t.startAngle}deg)`,
+                  width: `${r.radius * 2}%`,
+                  height: `${r.radius * 2}%`,
+                  transform: `translate(-50%, -50%) rotate(${t.startAngle}deg)`,
                   animation: `orbit-spin ${t.duration}s linear infinite ${t.reverse ? "reverse" : ""}`,
                 }}
               >
-                {/* Position icon centered exactly ON the ring path */}
+                {/* Position icon centered exactly ON the ring path (top center) */}
                 <div
                   style={{
                     position: "absolute",
-                    left: 0,
-                    top: `-${r.radius}%`,
+                    left: "50%",
+                    top: 0,
+                    transform: "translate(-50%, -50%)",
                   }}
                 >
-                  {/* Counter-rotate to keep upright, then spin the icon itself */}
+                  {/* Counter-rotate to keep upright */}
                   <div
                     className="orbit-spin-layer"
                     style={{
                       animation: `orbit-spin ${t.duration}s linear infinite ${t.reverse ? "" : "reverse"}`,
-                      transform: "translate(-50%, -50%)",
                     }}
                   >
+                    {/* Self-spin */}
                     <div
                       className="orbit-spin-layer"
                       style={{
@@ -254,7 +254,7 @@ export default function OrbitHero() {
           {/* Industry-standard software list */}
           <div className="mt-10 reveal">
             <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-5">
-              Industry-standard software I work with
+              Industry-standard software I use
             </p>
             <ul className="flex flex-wrap items-center justify-center gap-3 md:gap-4 max-w-3xl mx-auto">
               {tools.map((t) => (
