@@ -151,7 +151,7 @@ export default function OrbitHero() {
             return (
               <div
                 key={t.name}
-                className="absolute left-1/2 top-1/2 pointer-events-none"
+                className="orbit-tool absolute left-1/2 top-1/2 pointer-events-none"
                 style={{
                   width: 0,
                   height: 0,
@@ -170,21 +170,24 @@ export default function OrbitHero() {
                 >
                   {/* Counter-rotate to keep upright, then spin the icon itself */}
                   <div
+                    className="orbit-spin-layer"
                     style={{
                       animation: `orbit-spin ${t.duration}s linear infinite ${t.reverse ? "" : "reverse"}`,
                       transform: "translate(-50%, -50%)",
                     }}
                   >
                     <div
+                      className="orbit-spin-layer"
                       style={{
                         animation: `orbit-spin ${8 + (t.ring * 2)}s linear infinite`,
                       }}
                     >
                       <div
-                        className="size-12 md:size-14 rounded-2xl flex items-center justify-center glass-strong p-2 transition-transform hover:scale-110 pointer-events-auto"
+                        className="orbit-icon-card size-12 md:size-14 rounded-2xl flex items-center justify-center glass-strong p-2 pointer-events-auto"
                         style={{
                           boxShadow: `0 10px 32px ${t.glow}55, 0 0 22px ${t.glow}66, inset 0 1px 0 hsl(0 0% 100% / 0.20)`,
                           border: `1px solid ${t.glow}55`,
+                          ["--glow" as any]: t.glow,
                         }}
                         title={t.name}
                       >
@@ -258,6 +261,23 @@ export default function OrbitHero() {
         @keyframes particle-twinkle {
           0%, 100% { opacity: 0.15; transform: scale(1); }
           50%      { opacity: 0.9;  transform: scale(1.6); }
+        }
+        .orbit-tool,
+        .orbit-tool .orbit-spin-layer {
+          animation-play-state: running;
+          transition: animation-duration 600ms ease;
+        }
+        .orbit-icon-card {
+          transition: transform 350ms cubic-bezier(.2,.8,.2,1), box-shadow 350ms ease;
+        }
+        /* Slow the orbit + self-spin while hovering the icon */
+        .orbit-tool:hover,
+        .orbit-tool:hover .orbit-spin-layer {
+          animation-duration: 120s;
+        }
+        .orbit-tool:hover .orbit-icon-card {
+          transform: scale(1.18);
+          box-shadow: 0 14px 44px var(--glow), 0 0 32px var(--glow), inset 0 1px 0 hsl(0 0% 100% / 0.25);
         }
       `}</style>
     </section>
