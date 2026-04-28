@@ -85,7 +85,7 @@ export default function OrbitHero() {
         <div className="flex justify-center mb-10 reveal">
           <div className="glass-chip rounded-full px-5 py-2 text-xs md:text-sm tracking-[0.25em] uppercase text-foreground/90 flex items-center gap-2">
             <span className="text-primary">✦</span>
-            Premium Video Editor · 1000+ Edits Delivered
+            Premium Video Editor
           </div>
         </div>
 
