@@ -254,7 +254,7 @@ export default function OrbitHero() {
           {/* Industry-standard software list */}
           <div className="mt-10 reveal">
             <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-5">
-              Industry-standard software I work with
+              Industry-standard software I use
             </p>
             <ul className="flex flex-wrap items-center justify-center gap-3 md:gap-4 max-w-3xl mx-auto">
               {tools.map((t) => (
