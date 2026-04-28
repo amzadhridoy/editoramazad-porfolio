@@ -262,6 +262,23 @@ export default function OrbitHero() {
           0%, 100% { opacity: 0.15; transform: scale(1); }
           50%      { opacity: 0.9;  transform: scale(1.6); }
         }
+        .orbit-tool,
+        .orbit-tool .orbit-spin-layer {
+          animation-play-state: running;
+          transition: animation-duration 600ms ease;
+        }
+        .orbit-icon-card {
+          transition: transform 350ms cubic-bezier(.2,.8,.2,1), box-shadow 350ms ease;
+        }
+        /* Slow the orbit + self-spin while hovering the icon */
+        .orbit-tool:hover,
+        .orbit-tool:hover .orbit-spin-layer {
+          animation-duration: 120s;
+        }
+        .orbit-tool:hover .orbit-icon-card {
+          transform: scale(1.18);
+          box-shadow: 0 14px 44px var(--glow), 0 0 32px var(--glow), inset 0 1px 0 hsl(0 0% 100% / 0.25);
+        }
       `}</style>
     </section>
   );
