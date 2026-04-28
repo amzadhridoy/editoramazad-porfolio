@@ -236,21 +236,7 @@ export default function OrbitHero() {
           </div>
         </div>
 
-        {/* Headline */}
         <div className="text-center mt-10 md:mt-14 reveal">
-          <h2
-            className="font-bold tracking-tight text-foreground"
-            style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.5rem)", lineHeight: 1.05, letterSpacing: "-0.03em" }}
-          >
-            Get More Views
-            <br />
-            <span className="text-muted-foreground/80">Using</span>{" "}
-            <span className="text-foreground">Quality Video Editing</span>
-          </h2>
-          <p className="mt-5 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
-            Done-for-you podcast, VSL, YouTube, Reels, Shorts &amp; ad edits that
-            grow your audience and convert viewers into clients.
-          </p>
 
           {/* Industry-standard software list */}
           <div className="mt-10 reveal">
