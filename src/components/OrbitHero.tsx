@@ -160,42 +160,37 @@ export default function OrbitHero() {
                   animation: `orbit-spin ${t.duration}s linear infinite ${t.reverse ? "reverse" : ""}`,
                 }}
               >
-                {/* Push outward by ring radius */}
+                {/* Position icon centered exactly ON the ring path */}
                 <div
                   style={{
                     position: "absolute",
                     left: 0,
                     top: `-${r.radius}%`,
-                    transform: "translate(-50%, -50%)",
                   }}
                 >
                   {/* Counter-rotate so the icon stays upright while the parent spins */}
                   <div
                     style={{
                       animation: `orbit-spin ${t.duration}s linear infinite ${t.reverse ? "" : "reverse"}`,
+                      transform: "translate(-50%, -50%)",
                     }}
                   >
-                    <div className="flex flex-col items-center gap-2 pointer-events-auto">
-                      <div
-                        className="size-14 md:size-16 rounded-2xl flex items-center justify-center glass-strong p-2.5 transition-transform hover:scale-110"
-                        style={{
-                          boxShadow: `0 10px 32px ${t.glow}55, 0 0 22px ${t.glow}66, inset 0 1px 0 hsl(0 0% 100% / 0.20)`,
-                          border: `1px solid ${t.glow}55`,
-                        }}
-                        title={t.name}
-                      >
-                        <img
-                          src={t.src}
-                          alt={t.name}
-                          width={48}
-                          height={48}
-                          loading="lazy"
-                          className="size-full object-contain drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]"
-                        />
-                      </div>
-                      <div className="text-center text-xs md:text-sm font-medium text-foreground/90 leading-tight whitespace-nowrap">
-                        {t.name}
-                      </div>
+                    <div
+                      className="size-12 md:size-14 rounded-2xl flex items-center justify-center glass-strong p-2 transition-transform hover:scale-110 pointer-events-auto"
+                      style={{
+                        boxShadow: `0 10px 32px ${t.glow}55, 0 0 22px ${t.glow}66, inset 0 1px 0 hsl(0 0% 100% / 0.20)`,
+                        border: `1px solid ${t.glow}55`,
+                      }}
+                      title={t.name}
+                    >
+                      <img
+                        src={t.src}
+                        alt={t.name}
+                        width={48}
+                        height={48}
+                        loading="lazy"
+                        className="size-full object-contain drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]"
+                      />
                     </div>
                   </div>
                 </div>
