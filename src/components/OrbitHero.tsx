@@ -18,26 +18,27 @@ type Tool = {
   reverse?: boolean;
 };
 
-// 3 perfectly circular rings (radii in % of stage size)
+// 3 perfectly circular rings (radii in % of stage size) — matches reference image
 const rings = [
-  { radius: 22, color: "#7AB6FF", opacity: 0.45 }, // inner
-  { radius: 34, color: "#9B8CFF", opacity: 0.45 }, // middle
-  { radius: 46, color: "#B49BFF", opacity: 0.4 },  // outer
+  { radius: 22, color: "#8B7BFF", opacity: 0.55 }, // inner
+  { radius: 34, color: "#9B8CFF", opacity: 0.5 },  // middle
+  { radius: 46, color: "#B49BFF", opacity: 0.45 }, // outer
 ];
 
+// Angles measured from 12 o'clock, clockwise — matching the reference image exactly
 const tools: Tool[] = [
-  // Inner ring — 3 creative apps
-  { name: "Adobe Premiere Pro",  src: premiere,     glow: "#9B8CFF", ring: 0, startAngle: 0,   duration: 24 },
-  { name: "Adobe After Effects", src: aftereffects, glow: "#B49BFF", ring: 0, startAngle: 120, duration: 24 },
-  { name: "Adobe Photoshop",     src: photoshop,    glow: "#31A8FF", ring: 0, startAngle: 240, duration: 24 },
+  // Outer ring (largest)
+  { name: "Adobe Premiere Pro",  src: premiere,     glow: "#9B8CFF", ring: 2, startAngle: 20,   duration: 60 },
+  { name: "Adobe Photoshop",     src: photoshop,    glow: "#31A8FF", ring: 2, startAngle: 110,  duration: 60 },
+  { name: "ChatGPT",             src: chatgpt,      glow: "#10A37F", ring: 2, startAngle: 200,  duration: 60 },
+  { name: "Claude",              src: claude,       glow: "#D97757", ring: 2, startAngle: 250,  duration: 60 },
 
-  // Middle ring — CapCut alone, slow & opposite direction
-  { name: "CapCut",              src: capcut,       glow: "#00E0FF", ring: 1, startAngle: 60,  duration: 32, reverse: true },
+  // Middle ring
+  { name: "Adobe After Effects", src: aftereffects, glow: "#B49BFF", ring: 1, startAngle: -50,  duration: 48 },
+  { name: "Gemini",              src: gemini,       glow: "#7AB6FF", ring: 1, startAngle: 200,  duration: 48 },
 
-  // Outer ring — 3 AI tools
-  { name: "ChatGPT",             src: chatgpt,      glow: "#10A37F", ring: 2, startAngle: 30,  duration: 44 },
-  { name: "Gemini",              src: gemini,       glow: "#7AB6FF", ring: 2, startAngle: 150, duration: 44 },
-  { name: "Claude",              src: claude,       glow: "#D97757", ring: 2, startAngle: 270, duration: 44 },
+  // Inner ring
+  { name: "CapCut",              src: capcut,       glow: "#FFFFFF", ring: 0, startAngle: -90,  duration: 36, reverse: true },
 ];
 
 export default function OrbitHero() {
