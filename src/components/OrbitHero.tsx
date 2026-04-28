@@ -153,29 +153,29 @@ export default function OrbitHero() {
                 key={t.name}
                 className="orbit-tool absolute left-1/2 top-1/2 pointer-events-none"
                 style={{
-                  width: 0,
-                  height: 0,
-                  // start angle + spin
-                  transform: `rotate(${t.startAngle}deg)`,
+                  width: `${r.radius * 2}%`,
+                  height: `${r.radius * 2}%`,
+                  transform: `translate(-50%, -50%) rotate(${t.startAngle}deg)`,
                   animation: `orbit-spin ${t.duration}s linear infinite ${t.reverse ? "reverse" : ""}`,
                 }}
               >
-                {/* Position icon centered exactly ON the ring path */}
+                {/* Position icon centered exactly ON the ring path (top center) */}
                 <div
                   style={{
                     position: "absolute",
-                    left: 0,
-                    top: `-${r.radius}%`,
+                    left: "50%",
+                    top: 0,
+                    transform: "translate(-50%, -50%)",
                   }}
                 >
-                  {/* Counter-rotate to keep upright, then spin the icon itself */}
+                  {/* Counter-rotate to keep upright */}
                   <div
                     className="orbit-spin-layer"
                     style={{
                       animation: `orbit-spin ${t.duration}s linear infinite ${t.reverse ? "" : "reverse"}`,
-                      transform: "translate(-50%, -50%)",
                     }}
                   >
+                    {/* Self-spin */}
                     <div
                       className="orbit-spin-layer"
                       style={{
