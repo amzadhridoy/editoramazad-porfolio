@@ -250,6 +250,28 @@ export default function OrbitHero() {
             Done-for-you podcast, VSL, YouTube, Reels, Shorts &amp; ad edits that
             grow your audience and convert viewers into clients.
           </p>
+
+          {/* Industry-standard software list */}
+          <div className="mt-10 reveal">
+            <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-5">
+              Industry-standard software I work with
+            </p>
+            <ul className="flex flex-wrap items-center justify-center gap-3 md:gap-4 max-w-3xl mx-auto">
+              {tools.map((t) => (
+                <li
+                  key={`chip-${t.name}`}
+                  className="glass-chip rounded-full px-4 py-2 flex items-center gap-2.5 text-sm text-foreground/90"
+                  style={{
+                    border: `1px solid ${t.glow}55`,
+                    boxShadow: `0 4px 18px ${t.glow}33`,
+                  }}
+                >
+                  <img src={t.src} alt={t.name} width={20} height={20} className="size-5 object-contain" loading="lazy" />
+                  <span>{t.name}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
 
