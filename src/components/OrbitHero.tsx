@@ -2,18 +2,12 @@ import premiere from "@/assets/orbit/premiere.png";
 import aftereffects from "@/assets/orbit/aftereffects.png";
 import photoshop from "@/assets/orbit/photoshop.png";
 import capcut from "@/assets/orbit/capcut.png";
-import chatgpt from "@/assets/orbit/chatgpt-new.png";
-import claude from "@/assets/orbit/claude.png";
-import gemini from "@/assets/orbit/gemini.png";
 
 const tools = [
   { name: "Adobe Premiere Pro",  src: premiere,     glow: "#9B8CFF" },
-  { name: "Adobe Photoshop",     src: photoshop,    glow: "#31A8FF" },
   { name: "Adobe After Effects", src: aftereffects, glow: "#B49BFF" },
+  { name: "Adobe Photoshop",     src: photoshop,    glow: "#31A8FF" },
   { name: "CapCut",              src: capcut,       glow: "#FFFFFF" },
-  { name: "ChatGPT",             src: chatgpt,      glow: "#10A37F" },
-  { name: "Claude",              src: claude,       glow: "#D97757" },
-  { name: "Gemini",              src: gemini,       glow: "#7AB6FF" },
 ];
 
 export default function OrbitHero() {
