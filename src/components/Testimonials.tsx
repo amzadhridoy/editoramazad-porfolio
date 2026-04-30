@@ -3,31 +3,31 @@ import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
 
 const items = [
   {
-    name: "Jordan Miles",
-    role: "YouTube Creator · 850K subs",
-    avatar: "https://i.pravatar.cc/120?img=11",
+    name: "Daniel Thompson",
+    role: "YouTube Creator · 1.2M subs",
+    avatar: "https://i.pravatar.cc/120?img=68",
     quote:
-      "Amzad's edits doubled my average view duration in under a month. He just gets pacing and storytelling — best editor I've worked with.",
+      "Amzad completely transformed my channel. My retention went from 35% to over 60% — subscribers started pouring in. He understands what keeps people watching.",
     rating: 5,
     metric: "2× view duration",
   },
   {
-    name: "Priya Shah",
-    role: "Business Coach",
-    avatar: "https://i.pravatar.cc/120?img=49",
+    name: "Sarah Mitchell",
+    role: "Online Business Strategist",
+    avatar: "https://i.pravatar.cc/120?img=47",
     quote:
-      "My VSL conversion jumped from 2.4% to 5.1% after Amzad re-edited it. Worth every dollar — and then some.",
+      "My VSL conversion jumped from 2.4% to 5.1% after Amzad re-edited it. The man knows how to sell through video. Worth every dollar — and then some.",
     rating: 5,
     metric: "5.1% conversion",
   },
   {
-    name: "Marcus Lee",
-    role: "Agency Owner",
-    avatar: "https://i.pravatar.cc/120?img=14",
+    name: "Ryan Okafor",
+    role: "Creative Agency Founder",
+    avatar: "https://i.pravatar.cc/120?img=59",
     quote:
-      "Reliable, fast, and incredibly creative. He's basically an in-house creative director without the overhead.",
+      "We outsource all our client video work to Amzad now. Fast turnarounds, cinematic quality, zero hand-holding needed. He's our secret weapon.",
     rating: 5,
-    metric: "In-house quality",
+    metric: "Zero revisions needed",
   },
 ];
 
