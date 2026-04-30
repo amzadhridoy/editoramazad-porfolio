@@ -13,7 +13,7 @@ const items = [
   },
   {
     name: "Sarah Mitchell",
-    role: "Online Business Strategist",
+    role: "YouTube Creator · 540K subs",
     avatar: "https://i.pravatar.cc/120?img=47",
     quote:
       "My VSL conversion jumped from 2.4% to 5.1% after Amzad re-edited it. The man knows how to sell through video. Worth every dollar — and then some.",
@@ -22,7 +22,7 @@ const items = [
   },
   {
     name: "Ryan Okafor",
-    role: "Creative Agency Founder",
+    role: "YouTube Creator · 2.3M subs",
     avatar: "https://i.pravatar.cc/120?img=59",
     quote:
       "We outsource all our client video work to Amzad now. Fast turnarounds, cinematic quality, zero hand-holding needed. He's our secret weapon.",
