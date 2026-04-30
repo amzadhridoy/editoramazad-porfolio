@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Play } from "lucide-react";
 import w1 from "@/assets/work-1.jpg";
 import w2 from "@/assets/work-2.jpg";
@@ -6,55 +7,185 @@ import w4 from "@/assets/work-4.jpg";
 import w5 from "@/assets/work-5.jpg";
 import w6 from "@/assets/work-6.jpg";
 
-const works = [
-  { src: w3, label: "Reel · Creator", tag: "Short-Form", span: "row-span-2" },
-  { src: w2, label: "YouTube Edit", tag: "Long-Form", span: "" },
-  { src: w4, label: "VSL · Coach", tag: "Sales Video", span: "" },
-  { src: w5, label: "Podcast Clip", tag: "Clipping", span: "row-span-2" },
-  { src: w1, label: "Motion Reel", tag: "Motion", span: "" },
-  { src: w6, label: "Color Grade", tag: "Cinematic", span: "" },
+type WorkItem = {
+  src: string;
+  label: string;
+  description: string;
+};
+
+type Category = {
+  id: string;
+  title: string;
+  subtitle: string;
+  items: WorkItem[];
+};
+
+const categories: Category[] = [
+  {
+    id: "longform",
+    title: "YouTube Long-Form",
+    subtitle: "Cinematic edits that boost retention and watch time for YouTube creators.",
+    items: [
+      { src: w2, label: "Full Episode Edit", description: "Storytelling · Pacing · Retention hooks" },
+      { src: w1, label: "Documentary Style", description: "B-roll integration · Color grade · Sound design" },
+      { src: w4, label: "Tutorial Edit", description: "Screen recording · Motion graphics · Chapters" },
+    ],
+  },
+  {
+    id: "shortform",
+    title: "Short-Form Content",
+    subtitle: "Scroll-stopping reels, shorts, and TikToks designed to go viral.",
+    items: [
+      { src: w3, label: "YouTube Short", description: "Fast cuts · Trending hooks · Captions" },
+      { src: w5, label: "Instagram Reel", description: "Vertical format · Beat-synced · Eye-catching" },
+      { src: w6, label: "TikTok Edit", description: "Meme-style · Sound trending · Quick hooks" },
+    ],
+  },
+  {
+    id: "ads",
+    title: "Ads & Commercials",
+    subtitle: "High-converting video ads crafted for Facebook, YouTube & Instagram.",
+    items: [
+      { src: w1, label: "Facebook Ad", description: "Hook-story-offer · Conversion-focused" },
+      { src: w4, label: "YouTube Pre-Roll", description: "Skip-proof openings · Clear CTA" },
+      { src: w2, label: "Instagram Ad", description: "Vertical ad · Engaging visuals · Brand-aligned" },
+    ],
+  },
+  {
+    id: "vsl",
+    title: "VSL (Video Sales Letters)",
+    subtitle: "Sales videos that convert cold traffic into paying customers.",
+    items: [
+      { src: w4, label: "Coaching VSL", description: "Persuasive scripting · Testimonial integration" },
+      { src: w6, label: "Product Launch VSL", description: "Urgency-driven · Proof stacking · CTA loops" },
+      { src: w3, label: "Webinar Replay Edit", description: "Tightened pacing · Slide enhancement" },
+    ],
+  },
+  {
+    id: "podcast",
+    title: "Podcast Edits",
+    subtitle: "Professional podcast editing with clips, highlights, and repurposed content.",
+    items: [
+      { src: w5, label: "Full Podcast Edit", description: "Audio cleanup · Intro/outro · Chapters" },
+      { src: w2, label: "Highlight Clip", description: "Best moments · Captioned · Social-ready" },
+      { src: w1, label: "Audiogram", description: "Waveform visuals · Quote cards · Branding" },
+    ],
+  },
 ];
 
 export default function Work() {
+  const [activeTab, setActiveTab] = useState(0);
+  const active = categories[activeTab];
+
   return (
-    <section id="work" className="py-24">
+    <section id="work" className="py-28">
       <div className="container-tight">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 reveal">
-          <div className="max-w-2xl">
-            <p className="text-sm uppercase tracking-[0.25em] text-primary">Selected Work</p>
-            <h2 className="h-section mt-4">Edits That Actually Perform</h2>
-          </div>
-          <p className="max-w-md">
-            A glimpse of recent edits — from viral shorts to high-converting sales videos
-            for clients across the globe.
+        {/* Header */}
+        <div className="text-center mb-14 reveal">
+          <p className="text-sm uppercase tracking-[0.25em] text-primary flex items-center justify-center gap-2">
+            <span>✦</span> Selected Work
+          </p>
+          <h2 className="h-section mt-4">Edits That Actually Perform</h2>
+          <p className="mt-4 text-muted-foreground max-w-lg mx-auto">
+            From long-form YouTube videos to high-converting ads — here's a glimpse of what I deliver.
           </p>
         </div>
 
-        <div className="mt-14 grid grid-cols-2 md:grid-cols-3 auto-rows-[220px] gap-5">
-          {works.map((w, i) => (
-            <figure
-              key={i}
-              className={`relative overflow-hidden rounded-2xl group reveal ${w.span}`}
-              data-delay={i * 60}
+        {/* Category tabs */}
+        <div className="flex flex-wrap items-center justify-center gap-2 md:gap-3 mb-12 reveal">
+          {categories.map((cat, i) => (
+            <button
+              key={cat.id}
+              onClick={() => setActiveTab(i)}
+              className="rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-300"
+              style={{
+                background:
+                  i === activeTab
+                    ? "hsl(var(--primary))"
+                    : "hsl(var(--surface) / 0.6)",
+                color:
+                  i === activeTab
+                    ? "hsl(var(--primary-foreground))"
+                    : "hsl(var(--muted-foreground))",
+                border: `1px solid ${
+                  i === activeTab
+                    ? "hsl(var(--primary) / 0.8)"
+                    : "hsl(var(--border) / 0.5)"
+                }`,
+                boxShadow:
+                  i === activeTab
+                    ? "0 8px 24px hsl(var(--primary) / 0.25)"
+                    : "none",
+              }}
             >
-              <img
-                src={w.src}
-                alt={w.label}
-                loading="lazy"
-                className="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/30 to-transparent" />
-              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                <div className="size-14 rounded-full bg-primary/95 flex items-center justify-center shadow-glow">
-                  <Play className="size-5 text-primary-foreground ml-0.5" fill="currentColor" />
-                </div>
-              </div>
-              <figcaption className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
-                <span className="text-sm font-semibold text-foreground">{w.label}</span>
-                <span className="text-[10px] uppercase tracking-[0.2em] text-primary">{w.tag}</span>
-              </figcaption>
-            </figure>
+              {cat.title}
+            </button>
           ))}
+        </div>
+
+        {/* Active category content */}
+        <div key={active.id} className="animate-fade-in">
+          {/* Category subtitle */}
+          <p className="text-center text-muted-foreground mb-10 max-w-xl mx-auto">
+            {active.subtitle}
+          </p>
+
+          {/* Work grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {active.items.map((item, i) => (
+              <figure
+                key={`${active.id}-${i}`}
+                className="relative overflow-hidden rounded-2xl group cursor-pointer reveal"
+                style={{ aspectRatio: "16 / 10" }}
+                data-delay={i * 80}
+              >
+                <img
+                  src={item.src}
+                  alt={item.label}
+                  loading="lazy"
+                  className="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/40 to-transparent" />
+
+                {/* Play button */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div
+                    className="size-16 rounded-full flex items-center justify-center transition-transform group-hover:scale-110"
+                    style={{
+                      background: "hsl(var(--primary) / 0.95)",
+                      boxShadow: "0 8px 32px hsl(var(--primary) / 0.4)",
+                    }}
+                  >
+                    <Play className="size-6 text-primary-foreground ml-0.5" fill="currentColor" />
+                  </div>
+                </div>
+
+                {/* Caption */}
+                <figcaption className="absolute bottom-0 left-0 right-0 p-5">
+                  <span className="text-base font-semibold text-foreground block">
+                    {item.label}
+                  </span>
+                  <span className="text-xs text-muted-foreground mt-1 block">
+                    {item.description}
+                  </span>
+                </figcaption>
+
+                {/* Top-right category tag */}
+                <div
+                  className="absolute top-4 right-4 rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.2em] font-semibold"
+                  style={{
+                    background: "hsl(var(--primary) / 0.15)",
+                    color: "hsl(var(--primary))",
+                    border: "1px solid hsl(var(--primary) / 0.25)",
+                    backdropFilter: "blur(8px)",
+                  }}
+                >
+                  {active.title}
+                </div>
+              </figure>
+            ))}
+          </div>
         </div>
       </div>
     </section>
