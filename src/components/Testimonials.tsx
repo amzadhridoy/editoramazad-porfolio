@@ -3,29 +3,29 @@ import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
 
 const items = [
   {
-    name: "Daniel Thompson",
-    role: "YouTube Creator · 1.2M subs",
+    name: "YouTube Creator",
+    role: "1.2M subscribers",
     avatar: "https://i.pravatar.cc/120?img=68",
     quote:
-      "Amzad completely transformed my channel. My retention went from 35% to over 60% — subscribers started pouring in. He understands what keeps people watching.",
+      "My retention went from 35% to over 60% — subscribers started pouring in. He understands what keeps people watching.",
     rating: 5,
     metric: "2× view duration",
   },
   {
-    name: "Sarah Mitchell",
-    role: "YouTube Creator · 540K subs",
+    name: "Online Business Coach",
+    role: "7-figure brand",
     avatar: "https://i.pravatar.cc/120?img=47",
     quote:
-      "My VSL conversion jumped from 2.4% to 5.1% after Amzad re-edited it. The man knows how to sell through video. Worth every dollar — and then some.",
+      "My VSL conversion jumped from 2.4% to 5.1% after Amzad re-edited it. Worth every dollar — and then some.",
     rating: 5,
     metric: "5.1% conversion",
   },
   {
-    name: "Ryan Okafor",
-    role: "YouTube Creator · 2.3M subs",
+    name: "Creative Agency Owner",
+    role: "50+ clients served",
     avatar: "https://i.pravatar.cc/120?img=59",
     quote:
-      "We outsource all our client video work to Amzad now. Fast turnarounds, cinematic quality, zero hand-holding needed. He's our secret weapon.",
+      "Fast turnarounds, cinematic quality, zero hand-holding needed. He's our secret weapon for all client video work.",
     rating: 5,
     metric: "Zero revisions needed",
   },
