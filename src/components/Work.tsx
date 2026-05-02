@@ -29,9 +29,18 @@ const categories: Category[] = [
     title: "YouTube Long-Form",
     subtitle: "Cinematic edits that boost retention and watch time for YouTube creators.",
     items: [
-      { src: w2, label: "Full Episode Edit", description: "Storytelling · Pacing · Retention hooks" },
-      { src: w1, label: "Documentary Style", description: "B-roll integration · Color grade · Sound design" },
-      { src: w4, label: "Tutorial Edit", description: "Screen recording · Motion graphics · Chapters" },
+      {
+        src: ytThumb("eUNp-MKB6Zw"),
+        label: "Featured Long-Form Edit",
+        description: "Storytelling · Pacing · Retention hooks",
+        youtubeId: "eUNp-MKB6Zw",
+      },
+      {
+        src: ytThumb("FXOP1vZ-NXM"),
+        label: "Cinematic YouTube Edit",
+        description: "B-roll integration · Color grade · Sound design",
+        youtubeId: "FXOP1vZ-NXM",
+      },
     ],
   },
   {
@@ -151,7 +160,7 @@ export default function Work() {
           </p>
 
           {/* Work grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className={`grid grid-cols-1 gap-5 ${active.id === "longform" ? "md:grid-cols-2 md:gap-6" : "md:grid-cols-3"}`}>
             {active.items.map((item, i) => (
               <figure
                 key={`${active.id}-${i}`}
