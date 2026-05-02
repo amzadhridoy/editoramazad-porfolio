@@ -12,6 +12,7 @@ type WorkItem = {
   label: string;
   description: string;
   youtubeId?: string;
+  vertical?: boolean;
 };
 
 type Category = {
@@ -63,6 +64,27 @@ const categories: Category[] = [
       { src: w3, label: "YouTube Short", description: "Fast cuts · Trending hooks · Captions" },
       { src: w5, label: "Instagram Reel", description: "Vertical format · Beat-synced · Eye-catching" },
       { src: w6, label: "TikTok Edit", description: "Meme-style · Sound trending · Quick hooks" },
+      {
+        src: ytThumb("qBuiEhmraWE"),
+        label: "YouTube Short",
+        description: "Vertical edit · Hook-driven · Captioned",
+        youtubeId: "qBuiEhmraWE",
+        vertical: true,
+      },
+      {
+        src: ytThumb("aesgQhPJQDs"),
+        label: "YouTube Short",
+        description: "Punchy pacing · Trend-aware · Retention",
+        youtubeId: "aesgQhPJQDs",
+        vertical: true,
+      },
+      {
+        src: ytThumb("RdUH_S89CJE"),
+        label: "YouTube Short",
+        description: "Scroll-stopping · Beat-synced · Sharp cuts",
+        youtubeId: "RdUH_S89CJE",
+        vertical: true,
+      },
     ],
   },
   {
@@ -177,7 +199,7 @@ export default function Work() {
               <figure
                 key={`${active.id}-${i}`}
                 className="relative overflow-hidden rounded-2xl group cursor-pointer reveal"
-                style={{ aspectRatio: "16 / 10" }}
+                style={{ aspectRatio: item.vertical ? "9 / 16" : "16 / 10" }}
                 data-delay={i * 80}
                 onClick={() => item.youtubeId && setPlayingId(item.youtubeId)}
               >
