@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Play } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Play, X } from "lucide-react";
 import w1 from "@/assets/work-1.jpg";
 import w2 from "@/assets/work-2.jpg";
 import w3 from "@/assets/work-3.jpg";
@@ -11,6 +11,7 @@ type WorkItem = {
   src: string;
   label: string;
   description: string;
+  youtubeId?: string;
 };
 
 type Category = {
@@ -19,6 +20,8 @@ type Category = {
   subtitle: string;
   items: WorkItem[];
 };
+
+const ytThumb = (id: string) => `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
 
 const categories: Category[] = [
   {
@@ -46,7 +49,12 @@ const categories: Category[] = [
     title: "Ads & Commercials",
     subtitle: "High-converting video ads crafted for Facebook, YouTube & Instagram.",
     items: [
-      { src: w1, label: "Facebook Ad", description: "Hook-story-offer · Conversion-focused" },
+      {
+        src: ytThumb("eUNp-MKB6Zw"),
+        label: "Featured Ad",
+        description: "Hook-story-offer · Conversion-focused",
+        youtubeId: "eUNp-MKB6Zw",
+      },
       { src: w4, label: "YouTube Pre-Roll", description: "Skip-proof openings · Clear CTA" },
       { src: w2, label: "Instagram Ad", description: "Vertical ad · Engaging visuals · Brand-aligned" },
     ],
@@ -75,7 +83,19 @@ const categories: Category[] = [
 
 export default function Work() {
   const [activeTab, setActiveTab] = useState(0);
+  const [playingId, setPlayingId] = useState<string | null>(null);
   const active = categories[activeTab];
+
+  useEffect(() => {
+    if (!playingId) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setPlayingId(null);
+    window.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [playingId]);
 
   return (
     <section id="work" className="py-28">
@@ -138,6 +158,7 @@ export default function Work() {
                 className="relative overflow-hidden rounded-2xl group cursor-pointer reveal"
                 style={{ aspectRatio: "16 / 10" }}
                 data-delay={i * 80}
+                onClick={() => item.youtubeId && setPlayingId(item.youtubeId)}
               >
                 <img
                   src={item.src}
@@ -188,6 +209,40 @@ export default function Work() {
           </div>
         </div>
       </div>
+
+      {/* Lightbox */}
+      {playingId && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 animate-fade-in"
+          style={{ background: "hsl(var(--background) / 0.92)", backdropFilter: "blur(8px)" }}
+          onClick={() => setPlayingId(null)}
+        >
+          <button
+            onClick={() => setPlayingId(null)}
+            className="absolute top-6 right-6 size-10 rounded-full flex items-center justify-center transition-transform hover:scale-110"
+            style={{
+              background: "hsl(var(--surface) / 0.8)",
+              border: "1px solid hsl(var(--border))",
+            }}
+            aria-label="Close"
+          >
+            <X className="size-5 text-foreground" />
+          </button>
+          <div
+            className="relative w-full max-w-5xl rounded-2xl overflow-hidden"
+            style={{ aspectRatio: "16 / 9", boxShadow: "0 24px 64px hsl(var(--primary) / 0.3)" }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <iframe
+              src={`https://www.youtube.com/embed/${playingId}?autoplay=1&rel=0`}
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="absolute inset-0 size-full"
+            />
+          </div>
+        </div>
+      )}
     </section>
   );
 }
