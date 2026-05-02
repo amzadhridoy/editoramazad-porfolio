@@ -41,6 +41,18 @@ const categories: Category[] = [
         description: "B-roll integration · Color grade · Sound design",
         youtubeId: "FXOP1vZ-NXM",
       },
+      {
+        src: ytThumb("QPQbUZmdnNw"),
+        label: "Long-Form YouTube Edit",
+        description: "Narrative flow · Dynamic cuts · Engagement",
+        youtubeId: "QPQbUZmdnNw",
+      },
+      {
+        src: ytThumb("6uTJiI764uQ"),
+        label: "Premium YouTube Edit",
+        description: "Cinematic visuals · Pacing · Retention",
+        youtubeId: "6uTJiI764uQ",
+      },
     ],
   },
   {
