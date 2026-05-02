@@ -126,19 +126,19 @@ const categories: Category[] = [
 
 export default function Work() {
   const [activeTab, setActiveTab] = useState(0);
-  const [playingId, setPlayingId] = useState<string | null>(null);
+  const [playing, setPlaying] = useState<{ id: string; vertical?: boolean } | null>(null);
   const active = categories[activeTab];
 
   useEffect(() => {
-    if (!playingId) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setPlayingId(null);
+    if (!playing) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setPlaying(null);
     window.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
     return () => {
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
     };
-  }, [playingId]);
+  }, [playing]);
 
   return (
     <section id="work" className="py-28">
@@ -201,7 +201,7 @@ export default function Work() {
                 className="relative overflow-hidden rounded-2xl group cursor-pointer reveal"
                 style={{ aspectRatio: item.vertical ? "9 / 16" : "16 / 10" }}
                 data-delay={i * 80}
-                onClick={() => item.youtubeId && setPlayingId(item.youtubeId)}
+                onClick={() => item.youtubeId && setPlaying({ id: item.youtubeId, vertical: item.vertical })}
               >
                 <img
                   src={item.src}
@@ -254,14 +254,14 @@ export default function Work() {
       </div>
 
       {/* Lightbox */}
-      {playingId && (
+      {playing && (
         <div
           className="fixed inset-0 z-[100] flex items-center justify-center p-4 animate-fade-in"
           style={{ background: "hsl(var(--background) / 0.92)", backdropFilter: "blur(8px)" }}
-          onClick={() => setPlayingId(null)}
+          onClick={() => setPlaying(null)}
         >
           <button
-            onClick={() => setPlayingId(null)}
+            onClick={() => setPlaying(null)}
             className="absolute top-6 right-6 size-10 rounded-full flex items-center justify-center transition-transform hover:scale-110"
             style={{
               background: "hsl(var(--surface) / 0.8)",
@@ -272,12 +272,18 @@ export default function Work() {
             <X className="size-5 text-foreground" />
           </button>
           <div
-            className="relative w-full max-w-5xl rounded-2xl overflow-hidden"
-            style={{ aspectRatio: "16 / 9", boxShadow: "0 24px 64px hsl(var(--primary) / 0.3)" }}
+            className="relative rounded-2xl overflow-hidden"
+            style={{
+              aspectRatio: playing.vertical ? "9 / 16" : "16 / 9",
+              height: playing.vertical ? "min(85vh, 90svh)" : "auto",
+              width: playing.vertical ? "auto" : "100%",
+              maxWidth: playing.vertical ? "95vw" : "64rem",
+              boxShadow: "0 24px 64px hsl(var(--primary) / 0.3)",
+            }}
             onClick={(e) => e.stopPropagation()}
           >
             <iframe
-              src={`https://www.youtube.com/embed/${playingId}?autoplay=1&rel=0`}
+              src={`https://www.youtube.com/embed/${playing.id}?autoplay=1&mute=1&rel=0&playsinline=1`}
               title="YouTube video player"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
