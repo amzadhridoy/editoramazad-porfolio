@@ -160,7 +160,7 @@ export default function Work() {
           </p>
 
           {/* Work grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className={`grid grid-cols-1 gap-5 ${active.id === "longform" ? "md:grid-cols-2 md:gap-6" : "md:grid-cols-3"}`}>
             {active.items.map((item, i) => (
               <figure
                 key={`${active.id}-${i}`}
