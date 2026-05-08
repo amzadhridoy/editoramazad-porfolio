@@ -195,9 +195,8 @@ export default function Work() {
             {active.items.map((item, i) => (
               <figure
                 key={`${active.id}-${i}`}
-                className="relative overflow-hidden rounded-2xl group cursor-pointer reveal"
+                className="relative overflow-hidden rounded-2xl group cursor-pointer"
                 style={{ aspectRatio: item.vertical ? "9 / 16" : "16 / 10" }}
-                data-delay={i * 80}
                 onClick={() => item.youtubeId && setPlaying({ id: item.youtubeId, vertical: item.vertical })}
               >
                 <img
