@@ -33,14 +33,47 @@ export default function Orbit() {
     <section id="about" className="relative py-28 overflow-hidden">
       <div className="container-tight relative">
         <div className="text-center mb-14 reveal">
-          <p className="text-sm uppercase tracking-[0.25em] text-primary">About / My Universe</p>
+          <p className="text-sm uppercase tracking-[0.25em] text-primary">About Me</p>
           <h2 className="h-section mt-4">
-            Tools that <span className="text-muted-foreground font-medium">orbit</span> my craft
+            Hi, I'm{" "}
+            <span className="bg-gradient-to-r from-primary via-primary to-primary/60 bg-clip-text text-transparent">
+              Amzad Hridoy
+            </span>
           </h2>
-          <p className="mt-5 max-w-xl mx-auto">
-            3+ years, 1000+ videos delivered. I blend cinematic editing with AI-powered workflows
-            to ship premium content faster — for creators, coaches & brands worldwide.
+          <p className="mt-3 text-sm md:text-base uppercase tracking-[0.2em] text-muted-foreground">
+            Video Editor & Content Strategist
           </p>
+
+          <div className="mt-8 max-w-2xl mx-auto space-y-5 text-left md:text-center text-muted-foreground leading-relaxed">
+            <p>
+              I'm a passionate video editor focused on creating high-impact content that
+              captures attention and keeps audiences engaged.
+            </p>
+            <p>
+              With experience in short-form content, podcast edits, commercials, and cinematic
+              storytelling, I help creators and brands turn raw footage into visually compelling
+              videos. My editing style combines clean motion, smooth transitions, engaging pacing,
+              and modern visual aesthetics to deliver content that performs across platforms like
+              YouTube, Instagram, and TikTok.
+            </p>
+            <p>
+              I specialize in creating content that not only looks great but also connects with
+              viewers and increases retention. Whether it's viral short-form videos, long-form
+              YouTube content, or branded commercials, I focus on delivering edits that feel
+              premium, dynamic, and audience-driven.
+            </p>
+            <p className="text-foreground/90">
+              My goal is simple — create visuals that tell stories, build brands, and leave a
+              lasting impression.
+            </p>
+          </div>
+
+          <div className="mt-14 pt-8 border-t border-white/5">
+            <p className="text-xs uppercase tracking-[0.25em] text-primary/80">My Universe</p>
+            <h3 className="mt-3 text-2xl md:text-3xl font-semibold">
+              Tools that <span className="text-muted-foreground font-medium">orbit</span> my craft
+            </h3>
+          </div>
         </div>
 
         <div className="relative mx-auto" style={{ width: "min(680px, 92vw)", aspectRatio: "1 / 1" }}>
