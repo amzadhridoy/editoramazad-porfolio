@@ -127,9 +127,24 @@ const categories: Category[] = [
     title: "Podcast Edits",
     subtitle: "Professional podcast editing with clips, highlights, and repurposed content.",
     items: [
-      { src: w5, label: "Full Podcast Edit", description: "Audio cleanup · Intro/outro · Chapters" },
-      { src: w2, label: "Highlight Clip", description: "Best moments · Captioned · Social-ready" },
-      { src: w1, label: "Audiogram", description: "Waveform visuals · Quote cards · Branding" },
+      {
+        src: ytThumb("QzO19_h95R8"),
+        label: "Podcast Edit",
+        description: "Audio cleanup · Intro/outro · Chapters",
+        youtubeId: "QzO19_h95R8",
+      },
+      {
+        src: ytThumb("QzO19_h95R8"),
+        label: "Highlight Clip",
+        description: "Best moments · Captioned · Social-ready",
+        youtubeId: "QzO19_h95R8",
+      },
+      {
+        src: ytThumb("oaYmf5Wdjp8"),
+        label: "Podcast Feature",
+        description: "Dynamic cuts · Branded visuals · Engagement",
+        youtubeId: "oaYmf5Wdjp8",
+      },
     ],
   },
 ];
