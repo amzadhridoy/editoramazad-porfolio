@@ -61,9 +61,6 @@ const categories: Category[] = [
     title: "Short-Form Content",
     subtitle: "Scroll-stopping reels, shorts, and TikToks designed to go viral.",
     items: [
-      { src: w3, label: "YouTube Short", description: "Fast cuts · Trending hooks · Captions" },
-      { src: w5, label: "Instagram Reel", description: "Vertical format · Beat-synced · Eye-catching" },
-      { src: w6, label: "TikTok Edit", description: "Meme-style · Sound trending · Quick hooks" },
       {
         src: ytThumb("qBuiEhmraWE"),
         label: "YouTube Short",
