@@ -134,10 +134,10 @@ const categories: Category[] = [
         youtubeId: "QzO19_h95R8",
       },
       {
-        src: ytThumb("QzO19_h95R8"),
+        src: ytThumb("gD4K967Is8I"),
         label: "Highlight Clip",
         description: "Best moments · Captioned · Social-ready",
-        youtubeId: "QzO19_h95R8",
+        youtubeId: "gD4K967Is8I",
       },
       {
         src: ytThumb("oaYmf5Wdjp8"),
