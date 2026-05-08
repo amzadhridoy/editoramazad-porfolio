@@ -90,13 +90,26 @@ const categories: Category[] = [
     subtitle: "High-converting video ads crafted for Facebook, YouTube & Instagram.",
     items: [
       {
-        src: ytThumb("eUNp-MKB6Zw"),
-        label: "Featured Ad",
-        description: "Hook-story-offer · Conversion-focused",
-        youtubeId: "eUNp-MKB6Zw",
+        src: ytThumb("COMmyHYDNhw"),
+        label: "Vertical Ad",
+        description: "Hook-driven · Conversion-focused · Captioned",
+        youtubeId: "COMmyHYDNhw",
+        vertical: true,
       },
-      { src: w4, label: "YouTube Pre-Roll", description: "Skip-proof openings · Clear CTA" },
-      { src: w2, label: "Instagram Ad", description: "Vertical ad · Engaging visuals · Brand-aligned" },
+      {
+        src: ytThumb("_Gtl-SQSd30"),
+        label: "Short-Form Ad",
+        description: "Scroll-stopping · Brand-aligned · Punchy pacing",
+        youtubeId: "_Gtl-SQSd30",
+        vertical: true,
+      },
+      {
+        src: ytThumb("COMmyHYDNhw"),
+        label: "Promo Short",
+        description: "Engaging visuals · Clear CTA · Mobile-first",
+        youtubeId: "COMmyHYDNhw",
+        vertical: true,
+      },
     ],
   },
   {
