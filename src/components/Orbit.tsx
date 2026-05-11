@@ -46,25 +46,19 @@ export default function Orbit() {
 
           <div className="mt-8 max-w-2xl mx-auto space-y-5 text-left md:text-center text-muted-foreground leading-relaxed">
             <p>
-              I'm a passionate video editor focused on creating high-impact content that
-              captures attention and keeps audiences engaged.
+              I'm a Professional Video Editor with over 3+ years of experience helping creators
+              and brands produce content that stands out, performs, and grows audiences.
             </p>
             <p>
-              With experience in short-form content, podcast edits, commercials, and cinematic
-              storytelling, I help creators and brands turn raw footage into visually compelling
-              videos. My editing style combines clean motion, smooth transitions, engaging pacing,
-              and modern visual aesthetics to deliver content that performs across platforms like
-              YouTube, Instagram, and TikTok.
-            </p>
-            <p>
-              I specialize in creating content that not only looks great but also connects with
-              viewers and increases retention. Whether it's viral short-form videos, long-form
-              YouTube content, or branded commercials, I focus on delivering edits that feel
-              premium, dynamic, and audience-driven.
+              I specialize in YouTube long-form video editing, YouTube Shorts, Instagram Reels,
+              TikTok videos, podcast editing, VSL (Video Sales Letter) editing, and ads and
+              marketing videos. I also work on podcast-to-Shorts repurposing and transforming
+              long-form content into high-performing short-form videos.
             </p>
             <p className="text-foreground/90">
-              My goal is simple — create visuals that tell stories, build brands, and leave a
-              lasting impression.
+              My work focuses on engaging storytelling, smooth transitions, strong pacing, and
+              audience retention — helping creators grow their brand and connect with their
+              audience through every frame.
             </p>
           </div>
 
