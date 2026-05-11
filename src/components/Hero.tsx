@@ -27,8 +27,6 @@ export default function Hero() {
         portraitRef.current.style.transform = `translate3d(${x * 18}px, ${y * 18}px, 0)`;
       if (auroraRef.current)
         auroraRef.current.style.transform = `translate3d(${x * -30}px, ${y * -30}px, 0)`;
-      if (showcaseRef.current)
-        showcaseRef.current.style.transform = `perspective(1200px) rotateY(${x * 4}deg) rotateX(${-y * 3}deg)`;
     };
     window.addEventListener("mousemove", onMove);
     return () => window.removeEventListener("mousemove", onMove);
