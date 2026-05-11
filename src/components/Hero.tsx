@@ -1,4 +1,4 @@
-import { ArrowRight, Play, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { useEffect, useRef } from "react";
 import portrait from "@/assets/amzad-portrait.png";
 
