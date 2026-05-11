@@ -54,6 +54,12 @@ const categories: Category[] = [
         description: "Cinematic visuals · Pacing · Retention",
         youtubeId: "6uTJiI764uQ",
       },
+      {
+        src: ytThumb("mJndnlTf5Sc"),
+        label: "Latest Long-Form Edit",
+        description: "Storytelling · Cinematic flow · Retention",
+        youtubeId: "mJndnlTf5Sc",
+      },
     ],
   },
   {
