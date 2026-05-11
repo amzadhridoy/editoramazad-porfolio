@@ -13,7 +13,7 @@ const tools = [
 export default function OrbitHero() {
   return (
     <section
-      id="universe"
+      id="about"
       className="relative py-20 md:py-28 overflow-hidden"
       style={{
         background:
