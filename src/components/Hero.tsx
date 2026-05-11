@@ -14,7 +14,7 @@ export default function Hero() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const portraitRef = useRef<HTMLDivElement>(null);
   const auroraRef = useRef<HTMLDivElement>(null);
-  const showcaseRef = useRef<HTMLDivElement>(null);
+  
 
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
