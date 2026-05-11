@@ -1,4 +1,4 @@
-import { ArrowRight, Play, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { useEffect, useRef } from "react";
 import portrait from "@/assets/amzad-portrait.png";
 
@@ -14,7 +14,7 @@ export default function Hero() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const portraitRef = useRef<HTMLDivElement>(null);
   const auroraRef = useRef<HTMLDivElement>(null);
-  const showcaseRef = useRef<HTMLDivElement>(null);
+  
 
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
@@ -27,8 +27,6 @@ export default function Hero() {
         portraitRef.current.style.transform = `translate3d(${x * 18}px, ${y * 18}px, 0)`;
       if (auroraRef.current)
         auroraRef.current.style.transform = `translate3d(${x * -30}px, ${y * -30}px, 0)`;
-      if (showcaseRef.current)
-        showcaseRef.current.style.transform = `perspective(1200px) rotateY(${x * 4}deg) rotateX(${-y * 3}deg)`;
     };
     window.addEventListener("mousemove", onMove);
     return () => window.removeEventListener("mousemove", onMove);
@@ -110,27 +108,6 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Video showcase */}
-        <div className="mt-20 reveal" data-delay="120" style={{ perspective: "1200px" }}>
-          <div ref={showcaseRef} className="relative mx-auto max-w-4xl group transition-transform duration-300 ease-out">
-            <div className="absolute -inset-2 rounded-[28px] bg-primary/25 blur-3xl opacity-70 group-hover:opacity-100 transition-opacity" />
-            <div className="relative glass-strong aspect-video overflow-hidden flex items-center justify-center shine">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-transparent to-transparent" />
-              <button
-                aria-label="Play showreel"
-                className="relative size-20 rounded-full bg-primary/95 text-primary-foreground flex items-center justify-center transition hover:scale-110 shadow-glow"
-              >
-                <Play className="size-8 ml-1" fill="currentColor" />
-              </button>
-              <span className="absolute bottom-6 left-6 text-xs uppercase tracking-[0.25em] text-muted-foreground">
-                Showreel · 2026
-              </span>
-              <span className="absolute top-6 right-6 px-3 py-1 rounded-full glass-chip text-[10px] uppercase tracking-[0.2em]">
-                4K · 60fps
-              </span>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );
